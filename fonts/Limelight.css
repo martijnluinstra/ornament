@@ -1,0 +1,9 @@
+/* limelight-regular - latin */
+@font-face {
+  font-family: 'Limelight';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Limelight'),
+       url('/fonts/limelight/limelight-v16-latin-regular.woff2') format('woff2'), 
+       url('/fonts/limelight/limelight-v16-latin-regular.woff') format('woff'); 
+}

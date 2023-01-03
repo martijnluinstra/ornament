@@ -1,0 +1,61 @@
+<!--
+Hi! Thanks for taking a look at my sourcecode. It's not my best work, but it's alright.
+You can also have a look at it on Github: https://github.com/martijnluinstra/ornament
+
+Author: Martijn Luinstra (mail@martijnluinstra.nl)
+2023-01: created
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ornament</title>
+    <link rel="stylesheet" href="/css/ornament.css">
+</head>
+<body>
+<main>
+    <header lang="en">
+        <h1>Make your own bauble!</h1>
+    </header>
+    <header lang="nl">
+        <h1>Maak je eigen kerstbal!</h1>
+    </header>
+    <div class="animation-container">
+        <div class="animation" data-src="/models/bauble.glb"></div>
+    </div>
+<!--     <article lang="en">
+        <p>
+            <a href="./globe_en.pdf" download>Download globe bauble</a><br>
+            <a href="./waves_en.pdf" download>Download waves bauble</a><br>
+            <a href="./blank_en.pdf" download>Download blank bauble</a>
+        </p>
+        <p>
+            I'll work on this page over the holidays. Come back later for more! If you can't wait, have a look at <a href="https://planetarium.mrty.nl">last year's project</a> :)
+        </p>
+    </article>
+    <article lang="nl">
+        <p>
+            <a href="./globe_nl.pdf" download>Download wereldbol kerstbal</a><br>
+            <a href="./waves_nl.pdf" download>Download golven kerstbal</a><br>
+            <a href="./blank_nl.pdf" download>Download blanco kerstbal</a>
+        </p>
+        <p>
+            In de kerstvakantie maak ik deze pagina af. Kom later terug voor meer! Als je niet kunt wachten, kan je mijn <a href="https://planetarium.mrty.nl">project van vorig jaar</a> bekijken :)
+        </p>
+    </article> -->
+</main>
+<script async src="/js/es-module-shims.js"></script>
+<script type="importmap">
+    {
+        "imports": {
+            "three": "/js/three.module.js",
+            "GLTFLoader": "/js/GLTFLoader.module.js",
+            "OrbitControls": "/js/OrbitControls.module.js"
+        }
+    }
+</script>
+<script type="module" src="/js/main.js"></script>
+</body>
+</html>
+
