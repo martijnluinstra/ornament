@@ -119,3 +119,72 @@ article {
 .animation canvas {
     filter: drop-shadow(-5vmin 6vmin 15vmin #0008);
 }
+
+/* Template */
+.template {
+    display: none;
+}
+
+.template svg {
+    shape-rendering: geometricPrecision;
+    fill: black;
+    font-family: 'Josefin Sans';
+    font-weight: normal;
+}
+
+.template svg .solid {
+    fill: black;
+}
+
+.template svg .hatch-line {
+    stroke: #9e9e9e;
+    stroke-width: 1;
+}
+
+.template svg .hatch {
+    fill: url('#pattern-hatch');
+}
+
+.template svg .cut-mark {
+    fill: none;
+    stroke: black;
+    stroke-width: 2.36;
+}
+
+.template svg .cut-mark.slot {
+    stroke-width: 3.12;
+}
+
+.template svg .score-mark {
+    fill: none;
+    stroke: black;
+    stroke-width: 2.36;
+    stroke-dasharray: 20.83 10.42;
+}
+
+/*.template svg .cut-mark.invert,
+.template svg .score-mark.invert {
+    stroke: white;
+    mix-blend-mode: exclusion; /* Safari/mobile may not like *
+}*/
+
+.template svg .watermark {
+    fill: #ffff;
+}
+
+@media print {
+    body {
+        margin: 0mm;
+        background: none;
+    }
+    main {
+        display: none;
+    }
+    .template {
+        display: block;
+    }
+    .template svg {
+        max-height: 100vh;
+        max-width: 100vw;
+    }
+}
