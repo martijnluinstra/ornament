@@ -50,7 +50,8 @@ html, body {
 
 body {
     font-family: 'Josefin Sans', sans-serif;
-    background: url('/img/pattern.svg');
+    background-image: url('/img/pattern.svg');
+    background-size: 3rem;
 }
 
 h1, h2, h3, h4, h5, h6
