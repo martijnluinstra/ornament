@@ -11,7 +11,9 @@ class BaubleAnimation {
 
     constructor(context) {
         this.element = context.querySelector('.animation');
-        this.src = this.element.dataset.src;
+        this.defaultModel = this.element.dataset.model;
+        this.models = {};
+        this.textures = {};
 
         this.init();
         this.animate();
@@ -33,43 +35,42 @@ class BaubleAnimation {
         this.element.appendChild(this.renderer.domElement);
 
         // this.initControls();
-        this.loadScene();
+        this.initLights();
+        this.loadModel(this.defaultModel);
     }
 
-    loadMaterial() {
-        const textureLoader = new THREE.TextureLoader();
-        // let texture = textureLoader.load('http://ornament.localhost/img/textures/globe.jpg');
-        let texture = textureLoader.load('http://ornament.localhost/img/textures/diamonds.jpg');
-        // let texture = textureLoader.load('http://ornament.localhost/img/textures/fans.jpg');
-        // let texture = textureLoader.load('http://ornament.localhost/img/textures/waves.jpg');
-        texture.flipY = false;
-
-        return new THREE.MeshPhongMaterial({
-            map: texture,
-            color: 0xffffff,
-            fog: true,
-            shininess: 20,
-        });
-    }
-
-    loadScene() {
+    initLights() {
         // init lights;
         this.scene.add(new THREE.HemisphereLight(0xffeedd, 0x332211, 0.5));
 
         let directionalLight = new THREE.DirectionalLight(0xffeedd, 0.9);
         directionalLight.position.set(1.5, 1, 1);
         this.scene.add(directionalLight);
+    }
 
-        const loader = new GLTFLoader();
-        loader.load(
-            this.src,
-            (gltf) => {
-                this.bauble = gltf.scene.children[0];
-                this.bauble.material = this.material;
-                // this.bauble.position.y += 60;
-                this.scene.add(this.bauble);
-            },
-        );
+    loadModel(src) {
+        if (!(src in this.models)) {
+            const loader = new GLTFLoader();
+            loader.load(
+                src,
+                (gltf) => {
+                    const model = gltf.scene.children[0];
+                    model.name = src;
+                    model.material = this.material;
+                    this.models[src] = model;
+                    this.loadModel(src);
+                },
+            );
+        } else if (!this.currentModel) {
+            this.currentModel = this.models[src];
+            this.scene.add(this.currentModel);
+        } else if (this.currentModel.name !== src) {
+            const rotation = this.currentModel.rotation.y;
+            this.scene.remove(this.currentModel);
+            this.currentModel = this.models[src];
+            this.currentModel.rotation.y = rotation;
+            this.scene.add(this.currentModel);
+        }
     }
 
     initControls() {
@@ -86,9 +87,8 @@ class BaubleAnimation {
 
         if (this.controls)
             this.controls.update();
-
-        if (this.bauble)
-            this.bauble.rotation.y += 0.005;
+        else if (this.currentModel)
+            this.currentModel.rotation.y += 0.005;
 
         this.renderer.render(this.scene, this.camera);
     }
@@ -104,14 +104,23 @@ class BaubleAnimation {
         if (this.material);
             delete this.#material.map;
 
-        if (src) {
+        if (src && !(src in this.textures)) {
             const textureLoader = new THREE.TextureLoader();
-            this.#material.map = textureLoader.load(src);
-            this.#material.map.flipY = false;
+            let texture = textureLoader.load(src);
+            texture.flipY = false;
+            this.textures[src] = texture;
         }
 
-        if (this.bauble)
-            this.bauble.material = this.material;
+        if (src) {
+            this.#material.map = this.textures[src];
+            this.#material.version ++;
+            // this.#material.needsUpdate = true;
+        }
+
+        if (this.currentModel)
+            this.currentModel.material = this.material;
+        for (const key in this.models)
+            this.models[key].material = this.material;
     }
 
     get material() {
@@ -122,6 +131,14 @@ class BaubleAnimation {
                 shininess: 20,
             };
         return new THREE.MeshPhongMaterial(this.#material);
+    }
+
+    set bauble(bauble) {
+        this.texture = bauble.texture;
+        if (bauble.model)
+            this.loadModel(bauble.model);
+        else
+            this.loadModel(this.defaultModel);
     }
 }
 
@@ -154,6 +171,7 @@ class BaubleController {
                 element: element,
                 texture: element.dataset.texture,
                 template: element.dataset.template,
+                model: element.dataset.model,
             }
             this.baubles.push(bauble);
         }
@@ -181,7 +199,7 @@ class BaubleController {
         this.current = bauble_id;
         const current = this.baubles[bauble_id];
         current.element.hidden = false;
-        this.animation.texture = current.texture;
+        this.animation.bauble = current;
         this.template.template = current.template;
     }
 
