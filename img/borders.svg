@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="62px" height="62px" shape-rendering="geometricPrecision" fill-rule="evenodd" viewBox="0 0 62 62">
+ <g>
+  <!-- <rect fill="#152D4F" x="0" y="0" width="62" height="64"/> -->
+  <!-- <path fill="#152D4F" d="M 1 1 L 1 7 L 7 7 L 7 1 L 1 1 z M 7 7 L 7 13 L 1 13 L 1 49 L 7 49 L 7 55 L 13 55 L 13 61 L 49 61 L 49 55 L 55 55 L 55 49 L 61 49 L 61 13 L 55 13 L 55 7 L 49 7 L 49 1 L 13 1 L 13 7 L 7 7 z M 55 7 L 61 7 L 61 1 L 55 1 L 55 7 z M 55 55 L 55 61 L 61 61 L 61 55 L 55 55 z M 7 55 L 1 55 L 1 61 L 7 61 L 7 55 z"/> -->
+  <path fill="#152D4F" d="M 0 0 L 0 64 L 62 64 L 62 0 L 0 0 z M 19 13 L 43 13 L 43 19 L 49 19 L 49 43 L 43 43 L 43 49 L 19 49 L 19 43 L 13 43 L 13 19 L 19 19 L 19 13 z"/>
+  <polygon fill="none" stroke="#D4A55F" stroke-width="2" points="49,43 49,19 43,19 43,13 19,13 19,19 13,19 13,43 19,43 19,49 43,49 43,43"/>
+  <polygon fill="none" stroke="#D4A55F" stroke-width="2" points="61,49 61,13 49,13 49,1 13,1 13,13 1,13 1,49 13,49 13,61 49,61 49,49"/>
+  <polygon fill="none" stroke="#D4A55F" stroke-width="2" points="61,55 61,61 55,61 55,55 7,55 7,61 1,61 1,55 7,55 7,7 1,7 1,1 7,1 7,7 55,7 55,1 61,1 61,7 55,7 55,55 "/>
+ </g>
+</svg>
