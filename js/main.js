@@ -161,21 +161,55 @@ class BaubleTemplate {
 
 class BaubleController {
     constructor(context) {
+        this.context = context;
         this.animation = new BaubleAnimation(context);
         this.template = new BaubleTemplate(context);
 
+        this.dialogs = {};
+        for (let element of context.querySelectorAll('dialog'))
+            this.dialogs[`#${element.id}`] = element;
+
+        this.navigationDialog = context.getElementById('navigation-dialog');
+
+        let navigationDialogList = this.navigationDialog.querySelector('nav ul');
+
         this.current = 0;
         this.baubles = [];
-        for (let element of context.querySelectorAll('.bauble')) {
-            const bauble = {
+        for (const element of context.querySelectorAll('.bauble')) {
+            let bauble = {
+                id: element.id,
                 element: element,
                 texture: element.dataset.texture,
                 template: element.dataset.template,
                 model: element.dataset.model,
             }
+            let title = element.querySelector('[data-title]');
+            if (title) {
+                bauble.title = title.cloneNode(true);
+                title.hidden = true;
+
+                let aEl = document.createElement('a');
+                aEl.append(...title.cloneNode(true).children);
+                aEl.href = `#${bauble.id}`;
+                aEl.addEventListener(
+                    'click', () => this.toggle(bauble.id),
+                )
+                let liEl = document.createElement('li');
+                liEl.append(aEl);
+                navigationDialogList.append(liEl);
+            }
+
+            let controls = element.querySelector('[data-controls]');
+            if (controls) {
+                bauble.controls = controls.cloneNode(true);
+                controls.hidden = true;
+            }
+
             this.baubles.push(bauble);
         }
 
+        this.titleContainers = context.querySelectorAll('.title-container');
+        this.controlsContainers = context.querySelectorAll('.bauble-controls');
         this.toggle(this.baubles.findIndex(o => !o.element.hidden));
 
         for (let element of context.querySelectorAll('[data-next]'))
@@ -190,21 +224,68 @@ class BaubleController {
 
         for (let element of context.querySelectorAll('[data-print]'))
             element.addEventListener('click', this.print.bind(this));
+
+        document.addEventListener('click', this.handleDocumentClick.bind(this));
+
     }
 
     toggle(bauble_id) {
+        this.navigationDialog.close();
+        if (typeof bauble_id === 'string')
+            bauble_id = this.baubles.findIndex(b => b.id === bauble_id);
+
+        if (bauble_id < 0)
+            return;
+
+        let previous = this.baubles[this.current];
+        let current = this.baubles[bauble_id];
+        this.current = bauble_id;
+
+        for (let element of this.context.querySelectorAll(`[href='#${previous.id}']`))
+            element.classList.remove('is-active');
+
         for (let bauble of this.baubles)
             bauble.element.hidden = true;
 
-        this.current = bauble_id;
-        const current = this.baubles[bauble_id];
         current.element.hidden = false;
+
         this.animation.bauble = current;
         this.template.template = current.template;
+        for (let element of this.titleContainers) {
+            if (current.title)
+                element.replaceChildren(current.title);
+            else
+                element.replaceChildren('');
+        }
+        for (let element of this.controlsContainers) {
+            if (current.controls)
+                element.replaceChildren(...current.controls.cloneNode(true).children);
+            else
+                element.replaceChildren('');
+        }
+
+        for (let element of this.context.querySelectorAll(`[href='#${current.id}']`))
+            element.classList.add('is-active');
     }
 
-    print() {
-        window.print()
+    print(event) {
+        window.print();
+        event.target.blur();
+    }
+
+    handleDocumentClick(event) {
+        const anchor = event.target.closest('a[href]');
+        if (anchor && anchor.hash in this.dialogs) {
+            event.preventDefault();
+            this.dialogs[anchor.hash].showModal();
+        }
+        if (event.target.tagName === 'DIALOG') {
+            const rect = event.target.getBoundingClientRect();
+            const isInDialog = (rect.top <= event.clientY && event.clientY <= rect.top + rect.height
+                              && rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
+            if (!isInDialog)
+                event.target.close();
+        }
     }
 }
 

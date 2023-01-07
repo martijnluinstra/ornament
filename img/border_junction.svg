@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="26px" shape-rendering="geometricPrecision" fill-rule="evenodd" viewBox="0 0 20 26">
+  <rect fill="#152D4F" width="20" height="26"/>
+  <line fill="none" stroke="#D4A55F" stroke-width="2" stroke-miterlimit="22.9256" x1="7" y1="0" x2="7" y2= "26" />
+  <line fill="none" stroke="#D4A55F" stroke-width="2" stroke-miterlimit="22.9256" x1="0" y1="13" x2="20" y2= "13" />
+  <polyline fill="none" stroke="#D4A55F" stroke-width="2" stroke-miterlimit="22.9256" points="1,0 1,7 13,7 13,19 1,19 1,26 "/>
+  <polyline fill="none" stroke="#D4A55F" stroke-width="2" stroke-miterlimit="22.9256" points="13,26 13,25 19,25 19,19 20,19 "/>
+  <polyline fill="none" stroke="#D4A55F" stroke-width="2" stroke-miterlimit="22.9256" points="20,7 19,7 19,1 13,1 13,0 "/>
+</svg>
