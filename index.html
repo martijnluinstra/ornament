@@ -15,162 +15,144 @@ Author: Martijn Luinstra (mail@martijnluinstra.nl)
 </head>
 <body>
 <main>
-    <div class="page">
-        <header lang="en">
-            <h1>Make your own bauble!</h1>
-            <p>A <a href="https://midwinter.mrty.nl" target="_blank">midwinter project</a></p>
-        </header>
-        <header lang="nl">
-            <h1>Maak je eigen kerstbal!</h1>
-            <p>Een <a href="https://midwinter.mrty.nl" target="_blank">midwinterproject</a></p>
-        </header>
-        <section class="animation-container">
-            <noscript>
-                <p>It looks like your browser has disabled JavaScript. This page heavily relies on JavaScript for it's operation. Please turn on JavaScript for the best experience.</p>
-            </noscript>
-            <div class="animation" data-model="/models/bauble.glb"></div>
-        </section>
-        <section class="bauble-container">
-            <nav>
-                <button type="button" data-previous aria-label="Previous">
-                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48.8 48.8">
-                        <polygon points="7.5,22.5 45.9,22.5 45.9,26.4 7.5,26.4 21.2,40.1 18.5,42.9 0,24.4 18.5,5.9 21.2,8.7"/>
-                    </svg>
-                </button>
-                <a href="#navigation-dialog" class="title-container"></a>
-                <button type="button" data-next aria-label="Next">
-                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48.8 48.8">
-                        <polygon points="41.4,22.5 2.9,22.5 2.9,26.4 41.4,26.4 27.6,40.1 30.4,42.9 48.8,24.4 30.4,5.9 27.6,8.7"/>
-                    </svg>
-                </button>
-            </nav>
-            <ul class="baubles">
-                <li id="globe" class="bauble" data-texture="/img/textures/globe.jpg" data-template="/img/templates/globe.svg">
-                    <article>
-                        <h2 data-title>
-                            <span lang="en">Globe</span>
-                            <span lang="nl">Wereldbol</span>
-                        </h2>
-                        <div lang="en">
-                            <p>
-                                You’re out of this world!
-                            </p>
-                            <p>
-                                Made with <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener noreferrer nofollow">Natural Earth</a>.
-                            </p>
-                        </div>
-                        <div lang="nl">Bladibla</div>
-                    </article>
-                </li>
-                <li id="waves" class="bauble" data-texture="/img/textures/waves.jpg" data-template="/img/templates/waves.svg" hidden>
-                    <article>
-                        <h2 data-title>
-                            <span lang="en">Waves</span>
-                            <span lang="nl">Golven</span>
-                        </h2>
-                        <div lang="en">
-                            <p>
-                                Can’t get enough of the ocean? Turn it into a bauble!
-                            </p>
-                        </div>
-                        <div lang="nl">Bladibla</div>
-                    </article>
-                </li>
-                <li id="diamonds" class="bauble" data-texture="/img/textures/diamonds.jpg" data-template="/img/templates/diamonds.svg" hidden>
-                    <article>
-                        <h2 data-title>
-                            <span lang="en">Diamonds</span>
-                            <span lang="nl">Ruiten</span>
-                        </h2>
-                        <div lang="en">
-                            <p>
-                                A tasteful Art Deco inspired diamond pattern
-                            </p>
-                        </div>
-                        <div lang="nl">Bladibla</div>
-                    </article>
-                </li>
-                <li id="fans" class="bauble" data-texture="/img/textures/fans.jpg" data-template="/img/templates/fans.svg" hidden>
-                    <article>
-                        <h2 data-title>
-                            <span lang="en">Fans</span>
-                            <span lang="nl">Waaiers</span>
-                        </h2>
-                        <div lang="en">
-                            <p>
-                                A colourful Art Deco inspired fan pattern
-                            </p>
-                        </div>
-                        <div lang="nl">Bladibla</div>
-                    </article>
-                </li>
-                <li id="globe_simple" class="bauble" data-texture="/img/textures/globe_simple.png" data-template="/img/templates/globe_simple.svg" hidden>
-                    <article>
-                        <h2 data-title>
-                            <span lang="en">Globe outlines</span>
-                            <span lang="nl">Wereldbol lijnen</span>
-                        </h2>
-                        <div lang="en">Bladibla</div>
-                        <div lang="nl">Bladibla</div>
-                    </article>
-                </li>
-                <li id="jackie" class="bauble" data-texture="/img/textures/jackie.jpg" data-template="/img/templates/jackie.svg" data-model="/models/jackie.glb" hidden>
-                    <article>
-                        <h2 data-title>
-                            <span lang="en">Jackie</span>
-                            <span lang="nl">Jackie</span>
-                        </h2>
-                        <div lang="en">
-                            <p>
-                                Jackie the vegan reindeer! A vegan interpretation of a Greenlandic reindeer stew.
-                            </p>
-                        </div>
-                        <div lang="nl">
-                            <p>
-                                Jackie the vegan reindeer! Een veganistische interpretatie van een Groenlandse rendierstoof.
-                            </p>
-                        </div>
-                        <div data-controls>
-                            <a lang="en" href="#jackie-dialog">
-                                Show recipe
-                            </a>
-                            <a lang="nl" href="#jackie-dialog">
-                                Toon recept
-                            </a>
-                        </div>
-                    </article>
-                </li>
-                <li id="empty" class="bauble" hidden>
-                    <article>
-                        <h2 data-title>
-                            <span lang="en">Your design</span>
-                            <span lang="nl">Jouw ontwerp</span>
-                        </h2>
-                        <div lang="en">
-                            <p>
-                                Time to get creative!
-                            </p>
-                        </div>
-                        <div lang="nl">Bladibla</div>
-                    </article>
-                </li>
-            </ul>
-            <div class="controls">
-                <button type="button" data-print>
-                    <span lang="en">Print</span>
-                    <span lang="nl">Afdrukken</span>
-                </button>
-                <div class="bauble-controls"></div>
-            </div>
-        </section>
-        <dialog id="navigation-dialog" aria-labelledby="navigation-dialog-title">
-            <h2 id="navigation-dialog-title">
-                <span lang="en">Pick a design:</span>
-                <span lang="nl">Kies een ontwerp:</span>
+    <header lang="en">
+        <h1>Make your own bauble!</h1>
+        <p>A <a href="https://midwinter.mrty.nl" target="_blank">midwinter project</a></p>
+    </header>
+    <header lang="nl">
+        <h1>Maak je eigen kerstbal!</h1>
+        <p>Een <a href="https://midwinter.mrty.nl" target="_blank">midwinterproject</a></p>
+    </header>
+    <section class="animation-container">
+        <noscript>
+            <p>It looks like your browser has disabled JavaScript. This page heavily relies on JavaScript for it's operation. Please turn on JavaScript for the best experience.</p>
+        </noscript>
+        <div class="animation" data-model="/models/bauble.glb"></div>
+    </section>
+    <nav class="bauble-switcher">
+        <button type="button" data-previous aria-label="Previous">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48.8 48.8">
+                <polygon points="7.5,22.5 45.9,22.5 45.9,26.4 7.5,26.4 21.2,40.1 18.5,42.9 0,24.4 18.5,5.9 21.2,8.7"/>
+            </svg>
+        </button>
+        <a href="#navigation-dialog" class="button title-button"></a>
+        <button type="button" data-next aria-label="Next">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48.8 48.8">
+                <polygon points="41.4,22.5 2.9,22.5 2.9,26.4 41.4,26.4 27.6,40.1 30.4,42.9 48.8,24.4 30.4,5.9 27.6,8.7"/>
+            </svg>
+        </button>
+    </nav>
+    <section class="content">
+        <article id="globe" class="bauble" data-texture="/img/textures/globe.jpg" data-template="/img/templates/globe.svg">
+            <h2 data-title>
+                <span lang="en">Globe</span>
+                <span lang="nl">Wereldbol</span>
             </h2>
-            <nav><ul></ul></nav>
-        </dialog>
-    </div>
+            <div lang="en">
+                <p>
+                    You’re out of this world!
+                </p>
+                <p>
+                    Made with <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener noreferrer nofollow">Natural Earth</a>.
+                </p>
+            </div>
+            <div lang="nl">Bladibla</div>
+        </article>
+        <article id="waves" class="bauble" data-texture="/img/textures/waves.jpg" data-template="/img/templates/waves.svg" hidden>
+            <h2 data-title>
+                <span lang="en">Waves</span>
+                <span lang="nl">Golven</span>
+            </h2>
+            <div lang="en">
+                <p>
+                    Can’t get enough of the ocean? Turn it into a bauble!
+                </p>
+            </div>
+            <div lang="nl">Bladibla</div>
+        </article>
+        <article id="diamonds" class="bauble" data-texture="/img/textures/diamonds.jpg" data-template="/img/templates/diamonds.svg" hidden>
+            <h2 data-title>
+                <span lang="en">Diamonds</span>
+                <span lang="nl">Ruiten</span>
+            </h2>
+            <div lang="en">
+                <p>
+                    A tasteful Art Deco inspired diamond pattern
+                </p>
+            </div>
+            <div lang="nl">Bladibla</div>
+        </article>
+        <article id="fans" class="bauble" data-texture="/img/textures/fans.jpg" data-template="/img/templates/fans.svg" hidden>
+            <h2 data-title>
+                <span lang="en">Fans</span>
+                <span lang="nl">Waaiers</span>
+            </h2>
+            <div lang="en">
+                <p>
+                    A colourful Art Deco inspired fan pattern
+                </p>
+            </div>
+            <div lang="nl">Bladibla</div>
+        </article>
+        <article id="globe_simple" class="bauble" data-texture="/img/textures/globe_simple.png" data-template="/img/templates/globe_simple.svg" hidden>
+            <h2 data-title>
+                <span lang="en">Globe outlines</span>
+                <span lang="nl">Wereldbol lijnen</span>
+            </h2>
+            <div lang="en">Bladibla</div>
+            <div lang="nl">Bladibla</div>
+        </article>
+        <article id="jackie" class="bauble" data-texture="/img/textures/jackie.jpg" data-template="/img/templates/jackie.svg" data-model="/models/jackie.glb" hidden>
+            <h2 data-title>
+                <span lang="en">Jackie</span>
+                <span lang="nl">Jackie</span>
+            </h2>
+            <div lang="en">
+                <p>
+                    Jackie the vegan reindeer! A vegan interpretation of a Greenlandic reindeer stew.
+                </p>
+            </div>
+            <div lang="nl">
+                <p>
+                    Jackie the vegan reindeer! Een veganistische interpretatie van een Groenlandse rendierstoof.
+                </p>
+            </div>
+            <div data-controls>
+                <a lang="en" href="#jackie-dialog" class="button">
+                    Recipe
+                </a>
+                <a lang="nl" href="#jackie-dialog" class="button">
+                    Recept
+                </a>
+            </div>
+        </article>
+        <article id="empty" class="bauble" hidden>
+            <h2 data-title>
+                <span lang="en">Your design</span>
+                <span lang="nl">Jouw ontwerp</span>
+            </h2>
+            <div lang="en">
+                <p>
+                    Time to get creative!
+                </p>
+            </div>
+            <div lang="nl">Bladibla</div>
+        </article>
+        <div class="controls">
+            <button type="button" data-print>
+                <span lang="en">Print</span>
+                <span lang="nl">Afdrukken</span>
+            </button>
+            <div class="bauble-controls"></div>
+        </div>
+    </section>
+    <dialog id="navigation-dialog" aria-labelledby="navigation-dialog-title">
+        <h2 id="navigation-dialog-title">
+            <span lang="en">Pick a design:</span>
+            <span lang="nl">Kies een ontwerp:</span>
+        </h2>
+        <nav><ul></ul></nav>
+    </dialog>
     <footer lang="en">
         <ul>
             <li>
@@ -196,14 +178,14 @@ Author: Martijn Luinstra (mail@martijnluinstra.nl)
         </ul>
     </footer>
 </main>
-<div class="template">
+<article class="template">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="180 121 2120 3266">
         <defs>
             <pattern id="pattern-hatch" patternUnits="userSpaceOnUse" width="17.5" height="17.5" viewBox="0 0 4 4">
                 <path class="hatch-line" d="M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2"/>
             </pattern>
             <pattern id="pattern-white" patternUnits="userSpaceOnUse" width="17.5" height="17.5" viewBox="0 0 4 4">
-                <!-- Trick FireFox into printing a white background for the watermark -->
+                <!-- Trick Firefox into printing a white background for the watermark -->
                 <rect fill="white" x="0" y="0" width="4" height="4"/>
             </pattern>
             <polygon id="bauble-glue-tab" points="536.76,0 567.05,118.02 283.53,118.02 0,118.02 30.29,0" fill="url(#pattern-hatch)"/>
@@ -314,7 +296,7 @@ Author: Martijn Luinstra (mail@martijnluinstra.nl)
             </g>
         </g>
     </svg>
-</div>
+</article>
 <dialog id="jackie-dialog" aria-label="Jackie">
     <form method="dialog">
         <button>
@@ -362,7 +344,7 @@ Author: Martijn Luinstra (mail@martijnluinstra.nl)
                 Plate Jackie and garnish with the gherkins and parsley. Serve immediately with the red currant sauce and potato mash.
             </li>
         </ol>
-        <p>Recipe adapted from De vega atlas by Isabel Boerdam.</p>
+        <p>Recipe adapted from <em>De vega atlas</em> by Isabel Boerdam.</p>
     </article>
     <article lang="nl">
         <h2>Jackie</h2>
@@ -404,7 +386,7 @@ Author: Martijn Luinstra (mail@martijnluinstra.nl)
                 Verdeel Jackie over de borden, en garneer met de augurk en peterselie. Serveer met de rode-bessensaus en aardappelpuree.
             </li>
         </ol>
-        <p>Recept aangepast uit De vega atlas door Isabel Boerdam.</p>
+        <p>Recept aangepast uit <em>De vega atlas</em> door Isabel Boerdam.</p>
     </article>
 </dialog>
 <script async src="/js/es-module-shims.js"></script>

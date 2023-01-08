@@ -190,6 +190,7 @@ class BaubleController {
 
                 let aEl = document.createElement('a');
                 aEl.append(...title.cloneNode(true).children);
+                aEl.classList.add('button', 'is-stealth');
                 aEl.href = `#${bauble.id}`;
                 aEl.addEventListener(
                     'click', () => this.toggle(bauble.id),
@@ -208,7 +209,7 @@ class BaubleController {
             this.baubles.push(bauble);
         }
 
-        this.titleContainers = context.querySelectorAll('.title-container');
+        this.titleContainers = context.querySelectorAll('.title-button');
         this.controlsContainers = context.querySelectorAll('.bauble-controls');
         this.toggle(this.baubles.findIndex(o => !o.element.hidden));
 

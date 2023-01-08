@@ -7,9 +7,31 @@
     --foreground: #fdd790;
     --paper: #f1eae0;
     --duration: 75ms;
+
+    --gap: 14px;
+
+    --border-color: var(--gold);
+    --border-width: 2px;
+    --border: var(--border-width) solid var(--gold);
+
+    --fancy-border-width: 14px;
+    --fancy-border-texture-width: 20px;
+    --fancy-border: var(--fancy-border-width) solid;
+    --fancy-border-image: url('/img/border.svg') 20 / var(--fancy-border-texture-width);
+
+    --hexagon-scale: 0.287;
+
     --icon-size: 28px;
 
+    --button-height: 2em;
+    --header-height: 5rem;
+    --navigation-height: 3rem;
+
+    --text-width: 58ch;
+    --title-button-width: 30ch;
+
     /* Encode SVG to prevent flashes on interaction */
+    --border-endcap-offset: 7.46px;
     --border-endcap: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NC4wNnB4IiBoZWlnaHQ9IjMwMHB4IiBzaGFwZS1yZW5kZXJpbmc9Imdlb21ldHJpY1ByZWNpc2lvbiIgZmlsbC1ydWxlPSJldmVub2RkIiB2aWV3Qm94PSIwIDAgOTQuMDYgMzAwIj48cG9seWdvbiBmaWxsPSIjMTUyZDRmIiBwb2ludHM9IjAsMTQyIDAsMTU4IDEwLjkzLDE1OCA5NC4wNiwzMDAgOTQuMDYsMCAxMC45MywxNDIiLz48cG9seWxpbmUgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRDRBNTVGIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIyMi45MjU2IiBwb2ludHM9IjAsMTQ0IDQsMTQ0IDk0LjA2LDMwMCIvPjxwb2x5bGluZSBmaWxsPSJub25lIiBzdHJva2U9IiNENEE1NUYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjIyLjkyNTYiIHBvaW50cz0iMCwxNTYgNCwxNTYgOTQuMDYsMCIvPjwvc3ZnPg');
     --border-endcap-active: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NC4wNnB4IiBoZWlnaHQ9IjMwMHB4IiBzaGFwZS1yZW5kZXJpbmc9Imdlb21ldHJpY1ByZWNpc2lvbiIgZmlsbC1ydWxlPSJldmVub2RkIiB2aWV3Qm94PSIwIDAgOTQuMDYgMzAwIj48cG9seWdvbiBmaWxsPSIjMTUyZDRmIiBwb2ludHM9IjAsMTQyIDAsMTU4IDEwLjkzLDE1OCA5NC4wNiwzMDAgOTQuMDYsMCAxMC45MywxNDIiLz48cG9seWdvbiBmaWxsPSIjZmRkNzkwIiBwb2ludHM9IjUuNDYsMTUwIDk0LjA2LDMwMCA5NC4wNiwwIi8+PHBvbHlsaW5lIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0Q0QTU1RiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMjIuOTI1NiIgcG9pbnRzPSIwLDE0NCA0LDE0NCA5NC4wNiwzMDAiLz48cG9seWxpbmUgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRDRBNTVGIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIyMi45MjU2IiBwb2ludHM9IjAsMTU2IDQsMTU2IDk0LjA2LDAiLz48L3N2Zz4=');
     --border-endcap-hover: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NC4wNnB4IiBoZWlnaHQ9IjMwMHB4IiBzaGFwZS1yZW5kZXJpbmc9Imdlb21ldHJpY1ByZWNpc2lvbiIgZmlsbC1ydWxlPSJldmVub2RkIiB2aWV3Qm94PSIwIDAgOTQuMDYgMzAwIj48cG9seWdvbiBmaWxsPSIjMTUyZDRmIiBwb2ludHM9IjAsMTQyIDAsMTU4IDEwLjkzLDE1OCA5NC4wNiwzMDAgOTQuMDYsMCAxMC45MywxNDIiLz48cG9seWdvbiBmaWxsPSIjRDRBNTVGIiBwb2ludHM9IjUuNDYsMTUwIDk0LjA2LDMwMCA5NC4wNiwwIi8+PHBvbHlsaW5lIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0Q0QTU1RiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMjIuOTI1NiIgcG9pbnRzPSIwLDE0NCA0LDE0NCA5NC4wNiwzMDAiLz48cG9seWxpbmUgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRDRBNTVGIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIyMi45MjU2IiBwb2ludHM9IjAsMTU2IDQsMTU2IDk0LjA2LDAiLz48L3N2Zz4=');
@@ -56,13 +78,11 @@ html, body {
 }
 
 body {
-    padding-top: 1px;
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 18px;
     background: var(--background);
-    /*background-image: url('/img/pattern.svg');*/
     background-size: 3rem;
     background-position: 50%;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 18px;
     color: var(--foreground);
 }
 
@@ -121,21 +141,11 @@ svg {
 noscript {
     display: block;
     background: var(--background);
-    margin: 2rem auto;
-    padding: 1rem;
-    max-width: 58ch;
+    margin: calc(var(--gap) * 2) auto;
+    padding: var(--gap);
+    max-width: var(--text-width);
     text-align: center;
-    border: 2px solid var(--gold);
-}
-
-.icon {
-    fill: currentColor;
-    height: var(--icon-size);
-    width: var(--icon-size);
-    display: inline-block;
-    vertical-align: middle;
-    position: relative;
-    /*top: -.1em;*/
+    border: var(--border-width) solid var(--border-color);
 }
 
 /* Language switch */
@@ -147,348 +157,400 @@ html[lang^=nl] [lang=en] {
     display: none !important;
 }
 
+@media (max-width: 900px) {
+    body {
+        font-size: 16px;
+    }
 
-/* Layout & generic elements */
+    h1 { font-size: 1.5em; }
+    h2 { font-size: 1.5em; }
+}
+
+/*******************************************************************************
+ * Generic elements
+ ******************************************************************************/
+
+.icon {
+    fill: currentColor;
+    height: var(--icon-size);
+    width: var(--icon-size);
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    /*top: -0.05em;*/
+}
+
+/* Button */
+button,
+.button {
+    --height: var(--button-height);
+    display: inline-block;
+    height: var(--height);
+    padding: .1rem .75rem;
+    position: relative;
+
+    background: var(--background);
+    border-top: var(--border);
+    border-bottom: var(--border);
+    border-left: none;
+    border-right: none;
+
+    text-decoration: none;
+    color: var(--foreground);
+
+    transform-style: preserve-3d;
+}
+
+button::after,
+button::before,
+.button::after,
+.button::before {
+    --cap-translate-x: 0.5;
+    --cap-border: 3.5px solid var(--border-color);
+    --cap-transform: translateZ(-1px) translateX(calc(var(--height) * var(--cap-translate-x))) scaleX(calc(var(--hexagon-scale) * 2)) scale(0.725) rotate(45deg);
+
+    display: block;
+    content: '';
+    height: var(--height);
+    width: var(--height);
+    position: absolute;
+    top: calc(-1 * var(--border-width));
+
+    background-color: var(--background);
+    border: var(--cap-border);
+    transform: var(--cap-transform);
+}
+
+button::after,
+.button::after {
+    --cap-translate-x: -0.5;
+    left: 100%;
+}
+
+button::before,
+.button::before {
+    right: 100%;
+}
+
+button:hover,
+button:hover::after,
+button:hover::before,
+.button:hover,
+.button:hover::after,
+.button:hover::before {
+    background-color: var(--gold);
+    color: var(--background);
+}
+
+button:active,
+button:active::after,
+button:active::before,
+button.is-active,
+button.is-active::after,
+button.is-active::before,
+.button:active,
+.button:active::after,
+.button:active::before,
+.button.is-active,
+.button.is-active::after,
+.button.is-active::before {
+    background-color: var(--foreground);
+    color: var(--background);
+}
+
+
+/* Stealth button */
+button.is-stealth,
+.button.is-stealth {
+    border-top: var(--border-width) solid transparent;
+    border-bottom: var(--border-width) solid transparent;
+}
+
+button.is-stealth::after,
+button.is-stealth::before,
+.button.is-stealth::after,
+.button.is-stealth::before {
+    display: none;
+}
+
+button.is-stealth:hover,
+.button.is-stealth:hover {
+    border-top: var(--border);
+    border-bottom: var(--border);
+}
+
+button.is-stealth:hover,
+button.is-stealth:hover::after,
+button.is-stealth:hover::before,
+.button.is-stealth:hover,
+.button.is-stealth:hover::after,
+.button.is-stealth:hover::before {
+    background-color: var(--background);
+    color: var(--foreground);
+}
+
+button.is-stealth:active,
+button.is-stealth:active::after,
+button.is-stealth:active::before,
+button.is-stealth.is-active,
+button.is-stealth.is-active::after,
+button.is-stealth.is-active::before,
+.button.is-stealth:active,
+.button.is-stealth:active::after,
+.button.is-stealth:active::before,
+.button.is-stealth.is-active,
+.button.is-stealth.is-active::after,
+.button.is-stealth.is-active::before {
+    background-color: var(--gold);
+    color: var(--background);
+}
+
+button.is-stealth:hover::after,
+button.is-stealth:hover::before,
+button.is-stealth:active::after,
+button.is-stealth:active::before,
+button.is-stealth.is-active::after,
+button.is-stealth.is-active::before,
+.button.is-stealth:hover::after,
+.button.is-stealth:hover::before,
+.button.is-stealth:active::after,
+.button.is-stealth.is-active::after,
+.button.is-stealth:active::before,
+.button.is-stealth.is-active::before {
+    display: block;
+}
+
+/* Border container */
+header,
+.bauble-switcher > * {
+    --cap-width: calc(var(--hexagon-scale) * var(--height) + var(--border-endcap-offset));
+    position: relative;
+    height: var(--height);
+
+    border-top: var(--border);
+    border-bottom: var(--border);
+
+    background: var(--background);
+    color: var(--foreground);
+    text-align: center;
+
+    z-index: 10;
+}
+
+header::after,
+header::before,
+.bauble-switcher > ::after,
+.bauble-switcher > ::before {
+    display: block;
+    content: '';
+
+    position: absolute;
+    top: calc(-1 * var(--border-width));
+    width: var(--cap-width);
+    height: var(--height);
+
+    background: var(--border-endcap);
+    background-position: left center;
+    background-size: auto 300px;
+    border: none;
+
+    transform: none;
+}
+
+header::after,
+.bauble-switcher > ::after {
+    left: 100%;
+    transform: scaleX(-1);
+}
+
+header::before,
+.bauble-switcher > ::before {
+    right: 100%;
+}
+
+/* Border button */
+.bauble-switcher > button:hover::after,
+.bauble-switcher > button:hover::before,
+.bauble-switcher > .button:hover::after,
+.bauble-switcher > .button:hover::before {
+    background-image: var(--border-endcap-hover);
+    background-color: transparent;
+}
+
+.bauble-switcher > button:active::after,
+.bauble-switcher > button:active::before,
+.bauble-switcher > .button:active::after,
+.bauble-switcher > .button:active::before {
+    background-image: var(--border-endcap-active);
+    background-color: transparent;
+}
+
+
+/*******************************************************************************
+ * Dialog
+ ******************************************************************************/
+@keyframes animateZoom {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+dialog {
+    background: var(--background);
+    margin: auto;
+    color: var(--foreground);
+    text-align: left;
+    max-width: var(--text-width);
+    position: relative;
+    overflow-y: auto;
+    padding: var(--gap);
+}
+
+dialog[open] {
+    animation: animateZoom var(--duration);
+}
+
+/* I hate that positioning the button like this works, but I'll take it */
+dialog form[method='dialog'] {
+    position: sticky;
+    top: 0;
+    right: 0;
+    text-align: right;
+}
+
+dialog form[method='dialog'] button {
+    color: var(--foreground);
+    position: absolute;
+    top: calc(-1 * var(--gap));
+    right: calc(-1 * var(--gap));
+    background: none;
+    border: none;
+    padding: calc(0.5 * var(--gap));
+    transition: transform var(--duration);
+}
+
+dialog form[method='dialog'] button::after,
+dialog form[method='dialog'] button::before {
+    display: none;
+}
+
+dialog form[method='dialog'] button:hover .icon {
+    transform: scale(1.05);
+}
+
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+
+@media (max-width: 400px) {
+    dialog {
+        width: calc(100vw - var(--gap));
+    }
+}
+
+/*******************************************************************************
+ * Layout and main elements
+ ******************************************************************************/
 main {
     width: 100%;
     max-width: 100ch;
     margin: 0 auto;
-    padding: .2rem;
+    padding: var(--gap);
     min-height: 100%;
     display: flex;
     flex-direction: column;
 }
 
-.page {
-    display: flex;
-    flex-flow: column;
-    border: 20px solid;
-    border-image: url('/img/border.svg') 20 / 20px;
-    background-image: url('/img/pattern.svg');
-    background-size: 3rem;
-    background-position: center top;
-    /*outline: 6px solid var(--background);*/
-    /*padding:  1rem;
-    display: flex;
-    flex-flow: column;
-    /*height: 100%;*
-    min-height: 100%;*/
-    position: relative;
-    margin-top: 3rem;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
+@media (max-width: 400px) {
+    main {
+        padding: var(--gap) calc(var(--gap) * 0.5);
+    }
 }
 
-.page::after {
-    display: block;
-    content: '';
-    height: 42px;
-    width: 76px;
-    background: url('/img/border_detail.svg');
-    background-size: auto 42px;
-    position: absolute;
-    bottom: -34px;
-    left: calc(50% - 38px);
-}
-
-.page .animation-container {
-    flex: 1 0 50vh;
-    position: relative;
-}
-
-header,
-.bauble-container nav {
-    --border-compensation: 13px;
-    height: var(--height);
-    margin-top: calc(-0.5 * var(--height) - var(--border-compensation));
-    position: relative;
-}
-
+/* Header */
 header {
-    --height: 5rem;
-    width:  58ch;
+    --height: var(--header-height);
+    max-width: var(--text-width);
+
     margin-right: auto;
-    margin-bottom: 0;
+    margin-bottom: calc(-0.5 * var(--height) - 0.5 * var(--fancy-border-width));
     margin-left: auto;
-    text-align: center;    
-    background: var(--background);
-    color: var(--foreground);
-    border-top: 2px solid var(--gold);
-    border-bottom: 2px solid var(--gold);
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-header::after,
-header::before,
-.title-container::after,
-.title-container::before,
-.bauble-container nav button::after,
-.bauble-container nav button::before {
-    display: block;
-    content: '';
-    background: var(--border-endcap);/*url('/img/border_endcap.svg');*/
-    background-position: left center;
-    background-size: auto 300px;
-    position: absolute;
-    top: -2px;
-    bottom: -2px;
-    --offset: calc(0.287 * var(--height) + 7.46px);
-}
-
-header::after,
-.title-container::after,
-.bauble-container nav button::after {
-    left: 100%;
-    right: calc(-1 * var(--offset));
-    transform: scaleX(-1);
-}
-
-header::before,
-.title-container::before,
-.bauble-container nav button::before {
-    right: 100%;
-    left: calc(-1 * var(--offset));
 }
 
 header h1 {
     margin-bottom: -0.5rem !important;
 }
 
-footer {
-    margin-top: 1rem;
-    font-size: 85%;
+@media (max-width: 900px) {
+    header {
+        max-width: calc(100vw - 2 * var(--cap-width) - 2 * var(--fancy-border-texture-width) - 3 * var(--gap));
+    }
+
+    header h1 {
+        line-height: 1em;
+        margin-bottom: 0 !important;
+    }
+    header p {
+        line-height: 1.2em;
+    }
 }
 
-footer ul {
-    list-style: none;
-    margin-left: 0;
-    padding-left: 0;
-    display: flex;
-    justify-content: space-between;
+@media (max-width: 400px) {
+    header {
+        max-width: calc(100vw - 2 * var(--cap-width) - 2 * var(--fancy-border-texture-width) - 1.5 * var(--gap));
+    }
 }
 
-
-.bauble-container {
-    margin-left: -20px;
-    margin-bottom: -20px;
-    margin-right: -20px;
-    border: solid transparent;
-    border-image: url('/img/border.svg') 20;
-    border-width: 20px;
-    background: var(--background);
-}
-
-.bauble-container nav {
-    --height: 3rem;
-    /*--border-compensation: 13px;*/
-    /*height: var(--height);*/
-    /*margin-top: calc(-1rem - var(--border-compensation));*/
-    display: flex;
-    justify-content: center;
-    gap: 48px;
+/* Animation */
+.animation-container {
+    flex: 1 0 50vh;
     position: relative;
+
+    background-image: url('/img/pattern.svg');
+    background-size: 3rem;
+    background-position: center top;
+
+
+    border: var(--fancy-border);
+    border-image: var(--fancy-border-image);
+
+    box-shadow: inset -.1vmin .12vmin 3vmin #0008;
 }
 
-.bauble-container nav::after,
-.bauble-container nav::before {
+.animation-container::after,
+.animation-container::before {
+    --junction-height: 26px;
+    --junction-width: 20px;
     display: block;
     content: '';
+    height: var(--junction-height);
+    width: var(--junction-width);
     position: absolute;
-    top: calc(50% - 13px);
-    height: 26px;
-    width: 20px;
+    bottom: calc(-0.5 * var(--fancy-border-width) - 0.5 * var(--junction-height));
     background: url('/img/border_junction.svg');
+    z-index: 10;
 }
 
-.bauble-container nav::after {
-    left: 100%;
+.animation-container::after {
+    right: calc(-1 * var(--fancy-border-width));
     transform: scaleX(-1);
 }
 
-.bauble-container nav::before {
-    right: 100%;
+.animation-container::before {
+    left: calc(-1 * var(--fancy-border-width));
 }
 
-.bauble-container nav > * {
-    background: var(--background);
-    color: var(--foreground);
-}
-
-.bauble-container nav button {
-    position: relative;
-    border-top: 2px solid var(--gold);
-    border-bottom: 2px solid var(--gold);
-    border-right: none;
-    border-left: none;
-}
-
-.title-container:hover,
-.bauble-container nav button:hover {
-    background: var(--gold);
-    color: var(--background);
-}
-
-.title-container:hover::after,
-.title-container:hover::before,
-.bauble-container nav button:hover::after,
-.bauble-container nav button:hover::before {
-    background-image: var(--border-endcap-hover);/*url('/img/border_endcap_hover.svg');*/
-}
-
-.title-container:active,
-.bauble-container nav button:active {
-    background: var(--foreground);
-}
-
-.title-container:active::after,
-.title-container:active::before,
-.bauble-container nav button:active::after,
-.bauble-container nav button:active::before {
-    background-image: var(--border-endcap-active);/*url('/img/border_endcap_active.svg');*/
-}
-
-.bauble-container nav button .icon {
-    transition: transform var(--duration);
-}
-
-.bauble-container nav button:hover .icon {
-    transform: scale(1.05);
-}
-
-.bauble-container ul.baubles {
-    list-style: none;
-    margin-left: 0;
-    padding-left: 0;
-}
-/*
-.bauble-container nav::before {
-    display: block;
-    content: '';
-    width: 100%;
-}*/
-
-.title-container {
-    position: relative;
-    width: 30ch;
-    border-top: 2px solid var(--gold);
-    border-bottom: 2px solid var(--gold);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-}
-.title-container [data-title] {
-    width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    text-align: center;
-}
-
-.title-container [data-title] * {
-    /* Make sure everything overflows correctly */
-    display: inline;
-}
-
-.bauble > article {
-    max-width: 58ch;
-    margin: 1rem auto;
-    text-align: center;
-}
-
-.bauble-container .controls {
-    margin: 1rem 0;
-    display: flex;
-    justify-content: center;
-    gap: 1.75rem;
-}
-
-.bauble-container .controls a,
-.bauble-container .controls button {
-    --height: 2rem;
-    display: inline-block;
-    background: var(--background);
-    border-top: 2px solid var(--gold);
-    border-bottom: 2px solid var(--gold);
-    border-left: none;
-    border-right: none;
-    color: var(--foreground);
-    padding: .1rem .75rem;
-    height: 2rem;
-    position: relative;
-    transform-style: preserve-3d;
-    text-decoration: none;
-}
-
-.bauble-container .controls a::after,
-.bauble-container .controls a::before,
-.bauble-container .controls button::after,
-.bauble-container .controls button::before {
-    --x-translate: 0.5;
-    display: block;
-    content: '';
-    background-color: var(--background);
-    position: absolute;
-    top: -2px;
-    height: calc(var(--height));
-    width: calc(var(--height));
-    border: 3.5px solid var(--gold);
-    transform: translateZ(-1px) translateX(calc(var(--height) * var(--x-translate))) scaleX(0.574) scale(0.725) rotate(45deg);
-}
-
-.bauble-container .controls a::after,
-.bauble-container .controls button::after {
-    --x-translate: -0.5;
-    left: 100%;
-}
-
-.bauble-container .controls a::before,
-.bauble-container .controls button::before {
-    right: 100%;
-}
-
-.bauble-container .controls a:hover,
-.bauble-container .controls a:hover::after,
-.bauble-container .controls a:hover::before,
-.bauble-container .controls button:hover,
-.bauble-container .controls button:hover::after,
-.bauble-container .controls button:hover::before {
-    background-color: var(--gold);
-    color: var(--background);
-}
-
-.bauble-container .controls a:active,
-.bauble-container .controls a:active::after,
-.bauble-container .controls a:active::before,
-.bauble-container .controls button:active,
-.bauble-container .controls button:active::after,
-.bauble-container .controls button:active::before {
-    background-color: var(--foreground);
-    color: var(--background);
-}
-
-
-.bauble-container .controls .bauble-controls {
-    display: contents;
-}
-
-/*article {
-    position: relative;
-    background: var(--paper);
-    padding: 1rem;
-    margin: 2rem;
-    width: calc(100% - 4rem);
-    max-width: 58ch;
-    align-self: center;
-    border: .2rem solid var(--background);
-    outline: .1rem solid var(--paper);
-    text-align: center;
-}
-*/
 .animation {
     position: absolute;
     top: 0;
@@ -502,7 +564,184 @@ footer ul {
     filter: drop-shadow(-5vmin 6vmin 15vmin #0008);
 }
 
-/* Template */
+
+/* Navigation */
+.bauble-switcher {
+    --height: var(--navigation-height);
+    margin-top: calc(-0.5 * var(--height) - 0.5 * var(--fancy-border-width));
+    margin-bottom: calc(-0.5 * var(--height));
+    display: flex;
+    justify-content: center;
+    gap: calc(var(--gap) * 4);
+    position: relative;
+    z-index: 10;
+}
+
+.bauble-switcher > * {
+    --height: var(--navigation-height);
+    padding: 0;
+}
+
+.bauble-switcher .title-button {
+    width: var(--title-button-width);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bauble-switcher .title-button h2 {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.bauble-switcher .title-button h2 * {
+    /* Make sure everything overflows correctly */
+    display: inline;
+}
+
+@media (max-width: 900px) {
+    .bauble-switcher {
+        gap: 0;
+    }
+
+    .bauble-switcher > :not(:last-child)::after,
+    .bauble-switcher > :not(:first-child)::before {
+        display: none;
+    }
+
+    .bauble-switcher > :hover {
+        z-index: 20;
+    }
+
+    .bauble-switcher > :not(:last-child):hover:after,
+    .bauble-switcher > :not(:first-child):hover::before {
+        display: block;
+        background-image: none;
+        background-color: var(--gold);
+        border: var(--cap-border);
+        transform: var(--cap-transform);
+        width: var(--height);
+    }
+
+    .bauble-switcher > :not(:last-child):active:after,
+    .bauble-switcher > :not(:first-child):active::before {
+        background: var(--foreground);
+    }
+
+    .bauble-switcher > :last-child:hover:after {
+        transform: translateZ(-1px) scaleX(-1); /* Fix weird behaviour in Firefox */
+    }
+
+    .bauble-switcher .title-button {
+        max-width: calc(100vw - var(--gap) * 12); /* ✨ Magic ✨ */
+    }
+}
+
+/* Content */
+.content {
+    position: relative;
+    margin-top: calc(-0.5 * var(--fancy-border-width));
+    padding-top: calc(0.5 * var(--navigation-height) - 0.5 * var(--fancy-border-width));
+    padding-bottom: calc(var(--fancy-border-width)); /* Compensate for border detail */
+    background: var(--background);
+    border: var(--fancy-border);
+    border-image: var(--fancy-border-image);
+}
+
+.content::after {
+    --detail-width: 76px;
+    --detail-height: 42px;
+    display: block;
+    content: '';
+
+    width: var(--detail-width);
+    height: var(--detail-height);
+
+    position: absolute;
+    bottom: calc(-0.5 * calc(var(--detail-height) + var(--fancy-border-width)));
+    left: calc(50% - 38px);
+
+    background: url('/img/border_detail.svg');
+    background-size: auto var(--detail-height);
+    z-index: 10;
+}
+
+/* Bauble */
+.bauble {
+    max-width: var(--text-width);
+    margin: var(--gap) auto;
+    text-align: center;
+}
+
+/* Controls */
+.controls {
+    margin: var(--gap) 0;
+    display: flex;
+    justify-content: center;
+    gap: calc(var(--gap) * 2);
+}
+
+.controls .bauble-controls {
+    display: contents;
+}
+
+/* Footer  */
+footer {
+    margin-top: var(--gap);
+    font-size: 85%;
+    position: relative;
+}
+
+footer ul {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/*******************************************************************************
+ * Overrides
+ ******************************************************************************/
+
+#navigation-dialog {
+    text-align: center;
+}
+
+#navigation-dialog h2 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1em;
+}
+
+#navigation-dialog ul {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+    font-family: 'Limelight', serif;
+    line-height: 1.5;
+    font-size: 1.5rem;
+    padding: 0 1rem;
+}
+
+#navigation-dialog ul li:not(:last-child) {
+    margin-bottom: .2em;
+}
+
+#navigation-dialog .button {
+    --height: 1.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/*******************************************************************************
+ * Template
+ ******************************************************************************/
 .template {
     display: none;
 }
@@ -544,267 +783,22 @@ footer ul {
     stroke-dasharray: 20.83 10.42;
 }
 
-/*.template svg .cut-mark.invert,
-.template svg .score-mark.invert {
-    stroke: white;
-    mix-blend-mode: exclusion; /* Safari/mobile may not like *
-}*/
-
-.template svg .watermark {
-    fill: #ffff;
-}
-
 @media print {
     body {
         margin: 0mm;
         background: none;
     }
+
     main {
         display: none;
     }
+
     .template {
         display: block;
     }
+
     .template svg {
         max-height: 100vh;
         max-width: 100vw;
-    }
-}
-
-/* Dialog
- ******************************************************************************/
-
-@keyframes animateZoom {
-    0% {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-dialog {
-    background: var(--background);
-    margin: auto;
-    color: var(--foreground);
-    text-align: left;
-    max-width: 58ch;
-    position: relative;
-    overflow-y: auto;
-    padding: 1rem;
-}
-
-dialog[open] {
-    animation: animateZoom var(--duration);
-}
-
-/* I hate that positioning the button like this works, but I'll take it */
-dialog form[method='dialog'] {
-    position: sticky;
-    top: 0;
-    right: 0;
-    text-align: right;
-}
-
-dialog form[method='dialog'] button {
-    color: var(--foreground);
-    position: absolute;
-    top: -1rem;
-    right: -1rem;
-    background: none;
-    border: none;
-    padding: 0.5rem;
-    transition: transform var(--duration);
-}
-
-dialog form[method='dialog'] button:hover .icon {
-    transform: scale(1.05);
-}
-
-dialog::backdrop {
-    background: rgba(0, 0, 0, 0.5);
-}
-
-#navigation-dialog {
-    text-align: center;
-}
-
-#navigation-dialog h2 {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 1em;
-}
-
-#navigation-dialog ul {
-    list-style: none;
-    margin-left: 0;
-    padding-left: 0;
-    font-family: 'Limelight', serif;
-    line-height: 1.5;
-    font-size: 1.5rem;
-    padding: 0 1rem;
-}
-
-#navigation-dialog ul li:not(:last-child) {
-    margin-bottom: .2em;
-}
-
-/*
-#navigation-dialog a.is-active {
-    background: fuchsia;
-}*/
-
-#navigation-dialog a {
-    --height: 1.5em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--background);
-    color: var(--foreground);
-    padding: .1rem .75rem;
-    height: var(--height);
-    position: relative;
-    transform-style: preserve-3d;
-    text-decoration: none;
-    border-top: 2px solid transparent;
-    border-bottom: 2px solid transparent;
-    border-left: none;
-    border-right: none;
-}
-
-#navigation-dialog a::after,
-#navigation-dialog a::before {
-    --x-translate: 0.5;
-    display: none;
-    content: '';
-    background-color: var(--background);
-    position: absolute;
-    top: -2px;
-    height: calc(var(--height));
-    width: calc(var(--height));
-    border: 3.5px solid var(--gold);
-    transform: translateZ(-1px) translateX(calc(var(--height) * var(--x-translate))) scaleX(0.574) scale(0.725) rotate(45deg);
-}
-
-#navigation-dialog a::after {
-    --x-translate: -0.5;
-    left: 100%;
-}
-
-#navigation-dialog a::before {
-    right: 100%;
-}
-
-#navigation-dialog a:hover,
-#navigation-dialog a.is-active {
-    border-top: 2px solid var(--gold);
-    border-bottom: 2px solid var(--gold);
-    border-left: none;
-    border-right: none;
-}
-
-#navigation-dialog a:hover::after,
-#navigation-dialog a:hover::before,
-#navigation-dialog a.is-active::after,
-#navigation-dialog a.is-active::before {
-    display: block;
-}
-
-#navigation-dialog a:active,
-#navigation-dialog a:active::after,
-#navigation-dialog a:active::before,
-#navigation-dialog a.is-active,
-#navigation-dialog a.is-active::after,
-#navigation-dialog a.is-active::before {
-    background-color: var(--gold);
-    color: var(--background);
-}
-
-@media (max-width: 900px) {
-    body {
-        font-size: 16px;
-
-    }
-    h1 { font-size: 1.5em; }
-    h2 { font-size: 1.5em; }
-
-    header {
-        max-width: calc(80vw - 40px);
-    }
-
-    header h1 {
-        line-height: 1em;
-        margin-bottom: 0 !important;
-    }
-    header p {
-        line-height: 1.2em;
-    }
-
-    .bauble-container nav {
-        gap: 0;
-    }
-
-    .bauble-container nav button:first-child::after,
-    .bauble-container nav button:last-child::before,
-    .bauble-container nav .title-container::after,
-    .bauble-container nav .title-container::before {
-        display: none;
-    }
-
-    .bauble-container nav button,
-    .bauble-container nav .title-container {
-        position: relative;
-        transform-style: preserve-3d;
-    }
-    
-    .bauble-container nav button:hover,
-    .bauble-container nav .title-container:hover {
-        z-index: 10;
-    }
-
-    .bauble-container nav button:first-child:hover::after,
-    .bauble-container nav button:last-child:hover::before,
-    .bauble-container nav .title-container:hover::after,
-    .bauble-container nav .title-container:hover::before {
-        --x-translate: 0.5;
-        display: block;
-        content: '';
-        background-image: none;
-        background-color: var(--gold);
-        position: absolute;
-        top: -2px;
-        height: var(--height);
-        width: var(--height);
-        border: 3.5px solid var(--gold);
-        transform: translateZ(-1px) translateX(calc(var(--height) * var(--x-translate))) scaleX(0.574) scale(0.725) rotate(45deg);
-    }
-
-    .bauble-container nav button:first-child:hover::after,
-    .bauble-container nav .title-container:hover::after {
-        --x-translate: -0.5;
-        left: 100%;
-        right: auto;
-    }
-
-    .bauble-container nav button:last-child:hover::before,
-    .bauble-container nav .title-container:hover::before {
-        right: 100%;
-        left: auto;
-    }
-
-    .bauble-container nav button:first-child:active::after,
-    .bauble-container nav button:last-child:active::before,
-    .bauble-container nav .title-container:hover:active::after,
-    .bauble-container nav .title-container:hover:active::before {
-        background: var(--foreground);
-    }
-
-    .bauble-container nav .title-container {
-        max-width: calc(100vw - 164px);
-    }
-
-    dialog {
-        width: calc(100vw - .4rem);
     }
 }
