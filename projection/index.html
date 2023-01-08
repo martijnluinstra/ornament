@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Planetarium</title>
+</head>
+<body>
+    <svg id="my_dataviz" width="900" height="480"></svg>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-geo-projection@4"></script>
+    <script src="https://unpkg.com/d3-geo-polygon@1"></script>
+    <script type="module">
+        function myproj () {
+            const _octahedron = [
+                [0, 90],
+                [-90, 0], [0, 0], [90, 0], [180, 0],
+                [0, -90]
+            ];
+
+            const octahedron = [
+                [0, 2, 1],
+                [0, 3, 2],
+                [5, 1, 2],
+                [5, 2, 3],
+                [0, 1, 4],
+                [0, 4, 3],
+                [5, 4, 1],
+                [5, 3, 4]
+            ].map(function(face) {
+                return face.map(function(i) {
+                    return _octahedron[i];
+                });
+            });
+
+            const _cube = [
+              [0, 35.264389682754654], [90, 35.264389682754654], [180, 35.264389682754654], [-90, 35.264389682754654],
+              [0, -35.264389682754654], [90, -35.264389682754654], [180, -35.264389682754654], [-90, -35.264389682754654]
+            ];
+
+            const cube = [
+                [_cube[0], _cube[3], _cube[2], _cube[1]], // N
+                [_cube[0], _cube[1], _cube[5], _cube[4]],
+                [_cube[1], _cube[2], _cube[6], _cube[5]],
+                [_cube[2], _cube[3], _cube[7], _cube[6]],
+                [_cube[3], _cube[0], _cube[4], _cube[7]],
+                [_cube[4], _cube[5], _cube[6], _cube[7]] // S
+            ];
+
+            // const X = (Math.PI / 3) *  (180 / Math.PI);
+            // const X = 60;
+            // const X = 57.3;
+            const X = 53;
+            // const X = 40.8934;
+            // const X = 35.264389682754654;
+
+            const coords = [
+                [0, X], [60, X], [120, X], [180, X], [-120, X], [-60, X],
+                [0, 0], [60, 0], [120, 0], [180, 0], [-120, 0], [-60, 0],
+                [0, -X], [60, -X], [120, -X], [180, -X], [-120, -X], [-60, -X],
+            ]
+
+            const solid = [
+                [0, 5, 4, 3, 2, 1], // N
+                [0, 1, 7, 6],
+                [1, 2, 8, 7],
+                [2, 3, 9, 8],
+                [3, 4, 10, 9],
+                [4, 5, 11, 10],
+                [5, 0 , 6, 11],
+                [6, 7, 13, 12], //eq
+                [7, 8, 14, 13],
+                [8, 9, 15, 14],
+                [9, 10, 16, 15],
+                [10, 11, 17, 16],
+                [11, 6, 12, 17],
+                [12, 13, 14, 15, 16, 17], // S
+            ].map(function(face) {
+              return face.map(function(i) {
+                return coords[i];
+              });
+            });
+
+            const shape = cube;
+            const polygons = {
+                type: "FeatureCollection",
+                features: solid.map(function(face) {
+                    face = face.slice();
+                    face.push(face[0]);
+                    return {
+                        geometry: {
+                            type: "Polygon",
+                            coordinates: [face]
+                        }
+                    };
+                })
+            };
+
+            const parents =  [-1, 0, 0, 0, 0, 0, 0, 1, 13, 13, 13, 13, 13, 7];
+            return d3.geoPolyhedralVoronoi()
+                .polygons(polygons)
+                .parents(parents)
+                .angle(240)
+                // .scale(135)
+                .scale(127)
+                .center([30, 0])
+                // .rotate([30 ,0]);
+                .rotate([210 ,0]);
+        }
+
+        async function render() {
+            // console.log(proj);
+  
+            // Map and projection
+            // const projection = d3.geoNaturalEarth1()
+            // const projection = d3.geoPolyhedralButterfly()
+            const svg = d3.select("svg");
+            const width = +svg.attr("width");
+            const height = +svg.attr("height");
+
+            const projection = myproj()
+                .translate([width / 2, height / 2])
+  
+            const graticule = d3.geoGraticule10();
+            const outline = ({type: "Sphere"});
+            const path = d3.geoPath(projection);
+  
+            // Load external data and boot
+            // d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson").then( function(data) {
+            let land = await d3.json("./ne_50m_admin_0_countries_lakes.geojson");
+            let ice = await d3.json("./ne_50m_glaciated_areas.geojson");
+            let urban = await d3.json("./ne_50m_urban_areas.geojson");
+            let places = await d3.json("./ne_10m_populated_places_simple.geojson");
+
+
+            svg.attr("viewBox", [0, 0, width, height])
+                .attr("xmlns", "http://www.w3.org/2000/svg");
+  
+            const defs = svg.append("defs");
+  
+            defs.append("path")
+                .attr("id", "outline")
+                .attr("d", path(outline));
+  
+            defs.append("clipPath")
+                .attr("id", "clip")
+                .append("use")
+                    .attr("xlink:href", "#outline");
+                    // .attr("xlink:href", new URL("#outline", location));
+  
+            const g = svg.append("g")
+                .attr("clip-path", `url(#clip)`);
+                // .attr("clip-path", `url(${new URL("#clip", location)})`);
+  
+            g.append("use")
+                .attr("xlink:href", "#outline")
+                // .attr("xlink:href", new URL("#outline", location))
+                .attr("fill", "#cef");
+  
+            g.append("path")
+                .attr("d", path(graticule))
+                .attr("stroke", "#ccc")
+                .attr("fill", "none");
+  
+            g.append("path")
+                .attr("d", path(land))
+                .attr("fill", "#252");
+  
+            g.append("path")
+                .attr("d", path(ice))
+                .attr("fill", "#fff");
+
+            g.append("path")
+                .attr("d", path(urban))
+                .attr("fill", "#aaa");
+
+            console.log(svg.node().outerHTML);
+  
+
+            // g.append("g")
+            //     .selectAll("circle")
+            //     .data(places.features)
+            //     .join("circle")
+            //         .attr("transform", d => `translate(${projection([d.geometry.coordinates[0], d.geometry.coordinates[1]])})`)
+            //         .attr("r", .4)
+            //         .attr("fill", "#aaa")
+            //     .append("title")
+            //         .text(d => d.name);
+
+            // svg.append("use")
+            //     .attr("xlink:href", new URL("#outline", location))
+            //     .attr("stroke", "#000")
+            //     .attr("fill", "none");
+          // return svg.node();
+
+          // // The svg
+
+          // // let places = await d3.json("./ne_10m_populated_places_simple.geojson");
+          // let map = `<svg viewBox="0 0 ${width} ${height}" style="display: block;">
+          //           <defs>
+          //             <path id="outline" d="${path(outline)}" />
+          //             <clipPath id="clip"><use xlink:href="${new URL("#outline", location)}" /></clipPath>
+          //           </defs>
+          //           <g clip-path="url(${new URL("#clip", location)})">
+          //             <use xlink:href="${new URL("#outline", location)}" fill="#cef" />
+          //             <path d="${path(graticule)}" stroke="#ccc" fill="none"></path>
+          //             <path d="${path(base)}" fill="#252"></path>
+          //             <path d="${path(ice)}" fill="#fff"></path>
+          //             <path d="${path(places)}" fill="#fff5"></path>
+          //           </g>
+          //           <use xlink:href="${new URL("#outline", location)}" fill="none" stroke="#000" />
+          //         </svg>`;
+          // // let map = `<svg viewBox="0 0 ${width} ${height}" style="display: block;">
+          // //           <defs>
+          // //             <path id="outline" d="${path(outline)}" />
+          // //             <clipPath id="clip"><use xlink:href="${new URL("#outline", location)}" /></clipPath>
+          // //           </defs>
+          // //           <g clip-path="url(${new URL("#clip", location)})">
+          // //             <use xlink:href="${new URL("#outline", location)}" fill="#fff" />
+          // //           </g>
+          // //           <use xlink:href="${new URL("#outline", location)}" fill="none" stroke="#000" />
+          // //         </svg>`;
+          // document.getElementById('my_dataviz').outerHTML = map;
+
+        }
+
+        render();
+
+
+    </script>
+
+</body>
+</html>
