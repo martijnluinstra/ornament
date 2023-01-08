@@ -176,15 +176,16 @@ html[lang^=nl] [lang=en] {
     display: inline-block;
     vertical-align: middle;
     position: relative;
+    top: -.1em;
 }
 
 /* Button */
-button,
-.button {
+:is(button, .button) {
     --height: var(--button-height);
     display: inline-block;
     height: var(--height);
-    padding: .1rem .75rem;
+    margin: 0 calc(var(--height) * var(--hexagon-scale));
+    padding: 0em .75em;
     position: relative;
 
     background: var(--background);
@@ -193,16 +194,15 @@ button,
     border-left: none;
     border-right: none;
 
+    line-height: calc(var(--height) - var(--border-width)); /* Center text vissually */
     text-decoration: none;
     color: var(--foreground);
 
     transform-style: preserve-3d;
 }
 
-button::after,
-button::before,
-.button::after,
-.button::before {
+:is(button, .button)::after,
+:is(button, .button)::before {
     --cap-translate-x: 0.5;
     --cap-border: 3.5px solid var(--border-color);
     --cap-transform: translateZ(-1px) translateX(calc(var(--height) * var(--cap-translate-x))) scaleX(calc(var(--hexagon-scale) * 2)) scale(0.725) rotate(45deg);
@@ -219,103 +219,95 @@ button::before,
     transform: var(--cap-transform);
 }
 
-button::after,
-.button::after {
+:is(button, .button)::after {
     --cap-translate-x: -0.5;
     left: 100%;
 }
 
-button::before,
-.button::before {
+:is(button, .button)::before {
     right: 100%;
 }
 
-button:hover,
-button:hover::after,
-button:hover::before,
-.button:hover,
-.button:hover::after,
-.button:hover::before {
+:is(button, .button):hover,
+:is(button, .button):hover::after,
+:is(button, .button):hover::before {
     background-color: var(--gold);
     color: var(--background);
 }
 
-button:active,
-button:active::after,
-button:active::before,
-button.is-active,
-button.is-active::after,
-button.is-active::before,
-.button:active,
-.button:active::after,
-.button:active::before,
-.button.is-active,
-.button.is-active::after,
-.button.is-active::before {
+:is(button, .button):is(.is-active, :active),
+:is(button, .button):is(.is-active, :active)::after,
+:is(button, .button):is(.is-active, :active)::before {
     background-color: var(--foreground);
     color: var(--background);
 }
 
 
 /* Stealth button */
-button.is-stealth,
-.button.is-stealth {
+:is(button, .button).is-stealth {
     border-top: var(--border-width) solid transparent;
     border-bottom: var(--border-width) solid transparent;
 }
 
-button.is-stealth::after,
-button.is-stealth::before,
-.button.is-stealth::after,
-.button.is-stealth::before {
+:is(button, .button).is-stealth::after,
+:is(button, .button).is-stealth::before {
     display: none;
 }
 
-button.is-stealth:hover,
-.button.is-stealth:hover {
+:is(button, .button).is-stealth:hover {
     border-top: var(--border);
     border-bottom: var(--border);
 }
 
-button.is-stealth:hover,
-button.is-stealth:hover::after,
-button.is-stealth:hover::before,
-.button.is-stealth:hover,
-.button.is-stealth:hover::after,
-.button.is-stealth:hover::before {
+:is(button, .button).is-stealth:hover,
+:is(button, .button).is-stealth:hover::after,
+:is(button, .button).is-stealth:hover::before {
     background-color: var(--background);
     color: var(--foreground);
 }
 
-button.is-stealth:active,
-button.is-stealth:active::after,
-button.is-stealth:active::before,
-button.is-stealth.is-active,
-button.is-stealth.is-active::after,
-button.is-stealth.is-active::before,
-.button.is-stealth:active,
-.button.is-stealth:active::after,
-.button.is-stealth:active::before,
-.button.is-stealth.is-active,
-.button.is-stealth.is-active::after,
-.button.is-stealth.is-active::before {
+:is(button, .button).is-stealth:is(.is-active, :active),
+:is(button, .button).is-stealth:is(.is-active, :active)::after,
+:is(button, .button).is-stealth:is(.is-active, :active)::before {
     background-color: var(--gold);
     color: var(--background);
 }
 
-button.is-stealth:hover::after,
-button.is-stealth:hover::before,
-button.is-stealth:active::after,
-button.is-stealth:active::before,
-button.is-stealth.is-active::after,
-button.is-stealth.is-active::before,
-.button.is-stealth:hover::after,
-.button.is-stealth:hover::before,
-.button.is-stealth:active::after,
-.button.is-stealth.is-active::after,
-.button.is-stealth:active::before,
-.button.is-stealth.is-active::before {
+:is(button, .button).is-stealth:is(.is-active, :hover, :active)::after,
+:is(button, .button).is-stealth:is(.is-active, :hover, :active)::before {
     display: block;
+}
+
+.toggle {
+    --height: var(--button-height);
+    padding: 0 calc(var(--height) * var(--hexagon-scale));
+    display: flex;
+}
+
+.toggle :is(button, .button) {
+    margin: 0;
+}
+
+.toggle :is(button, .button):not(.is-active):not(:last-child) {
+    padding-right: 1em;
+}
+
+.toggle :is(button, .button):not(.is-active):not(:first-child) {
+    padding-left: 1em;
+}
+
+.toggle :is(button, .button).is-active,
+.toggle :is(button, .button).is-active::after,
+.toggle :is(button, .button).is-active::before {
+    background-color: var(--gold);
+    color: var(--background);
+    z-index: 10;
+}
+
+.toggle :is(button, .button):active,
+.toggle :is(button, .button):active::after,
+.toggle :is(button, .button):active::before {
+    z-index: 20;
 }
 
 /* Border container */
@@ -508,7 +500,7 @@ header p {
 
 /* Animation */
 .animation-container {
-    --overhead-estimate: 19rem;
+    --overhead-estimate: 20rem;
     min-height: 25rem;
     flex: 0 0 calc(100vh - var(--overhead-estimate));
     position: relative;
@@ -572,7 +564,7 @@ header p {
     margin-bottom: calc(-0.5 * var(--height));
     display: flex;
     justify-content: center;
-    gap: calc(var(--gap) * 4);
+    gap: calc(var(--gap) + 2 * var(--border-endcap-offset));
     position: relative;
     z-index: 10;
 }
@@ -605,6 +597,10 @@ header p {
 @media (max-width: 900px) {
     .bauble-switcher {
         gap: 0;
+    }
+
+    .bauble-switcher > * {
+        margin: 0;
     }
 
     .bauble-switcher > :not(:last-child)::after,
@@ -686,12 +682,12 @@ header p {
     text-align: center;
 }
 
-
 /* Controls */
 .controls {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: calc(var(--gap) * 2);
+    gap: var(--gap);
 }
 
 .controls .bauble-controls {
@@ -711,6 +707,11 @@ footer ul {
     padding-left: 0;
     display: flex;
     justify-content: space-between;
+}
+
+footer .toggle .button {
+    --height: 1.70em;
+    font-size: 85%;
 }
 
 
