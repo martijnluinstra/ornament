@@ -189,6 +189,9 @@ class BaubleController {
 
         this.baubleTitles = context.querySelectorAll('.bauble-title');
         this.baubleControls = context.querySelectorAll('.bauble-controls');
+        this.typeControls = context.querySelectorAll('[data-type]');
+        this.colorTypeControls = context.querySelectorAll('[data-type-color]');
+        this.linesTypeControls = context.querySelectorAll('[data-type-lines]');
 
         this.loadBaubles(context);
 
@@ -196,10 +199,16 @@ class BaubleController {
             element.hidden = true;
 
         for (let element of context.querySelectorAll('[data-next]'))
-            element.addEventListener('click', () => this.toggle(this.#current + 1));
+            element.addEventListener('click', this.next.bind(this));
 
         for (let element of context.querySelectorAll('[data-previous]'))
-            element.addEventListener('click', () => this.toggle(this.#current - 1));
+            element.addEventListener('click', this.previous.bind(this));
+
+        for (let element of this.colorTypeControls)
+            element.addEventListener('click', () => this.toggleAlt('color'));
+
+        for (let element of this.linesTypeControls)
+            element.addEventListener('click', () => this.toggleAlt('lines'));
 
         for (let element of context.querySelectorAll('[data-print]'))
             element.addEventListener('click', this.handlePrint.bind(this));
@@ -214,14 +223,25 @@ class BaubleController {
     loadBaubles(context) {
         let navigationDialogList = context.querySelector('#navigation-dialog nav ul');
 
-        this.baubles = [];
+        this.baubles = {};
+        this.navigation = [];
         for (const element of context.querySelectorAll('.bauble')) {
             let bauble = {
-                id: element.id,
+                id: `#${element.id}`,
                 element: element,
                 texture: element.dataset.texture,
                 template: element.dataset.template,
                 model: element.dataset.model,
+            }
+
+            if (element.dataset.altLines) {
+                bauble.type = 'color';
+                bauble.alt = element.dataset.altLines;
+            }
+
+            if (element.dataset.altColor) {
+                bauble.type = 'lines';
+                bauble.alt = element.dataset.altColor;
             }
 
             let title = element.querySelector('[data-title]');
@@ -237,20 +257,22 @@ class BaubleController {
                 controls.hidden = true;
             }
 
-            this.baubles.push(bauble);
+            this.baubles[bauble.id] = bauble;
+            if (!bauble.type || bauble.type !== 'lines')
+                this.navigation.push(bauble.id);
         }
 
-        if (this.baubles.findIndex(b => b.id === window.location.hash) > 0)
+        if (window.location.hash in this.baubles)
             this.toggle(window.location.hash);
         else
-            this.toggle(this.#current, false);
+            this.toggle(this.navigation[0], false);
     }
 
     createNavigationElement(bauble) {
         let anchorElement = document.createElement('a');
         anchorElement.append(...bauble.title.cloneNode(true).children);
         anchorElement.classList.add('button', 'is-stealth');
-        anchorElement.href = `#${bauble.id}`;
+        anchorElement.href = bauble.id;
         anchorElement.addEventListener(
             'click', () => this.toggle(bauble.id),
         )
@@ -259,29 +281,47 @@ class BaubleController {
         return itemElement;
     }
 
+    previous() {
+        this.navigate(-1);
+    }
+
+    next() {
+        this.navigate(1);
+    }
+
+    navigate(direction) {
+        let current = this.navigation.indexOf(this.#current.id);
+        if (current < 0) 
+            current = this.navigation.indexOf(this.#current.alt) || 0;
+        const idx = (this.navigation.length + current + direction) % this.navigation.length;
+        console.log(this.#current, current, idx, this.navigation);
+        return this.toggle(this.navigation[idx]);
+    }
+
+    toggleAlt(type) {
+        if (!this.#current.alt || this.#current.type === type)
+            return;
+        this.toggle(this.#current.alt);
+    }
+
     toggle(bauble_id, updateLocation=true) {
         // Close dialog (if needed)
         this.context.getElementById('navigation-dialog').close();
 
-        if (typeof bauble_id === 'string')
-            bauble_id = this.baubles.findIndex(b => b.id === bauble_id);
-        else
-            bauble_id = (this.baubles.length + bauble_id) % this.baubles.length;
-
-        if (bauble_id < 0)
+        if (!(bauble_id in this.baubles))
             return;
 
         // Switch
-        let previous = this.baubles[this.#current];
+        let previous = this.#current;
         let current = this.baubles[bauble_id];
-        this.#current = bauble_id;
+        this.#current = current;
 
         // Update content
         this.animation.bauble = current;
         this.template.template = current.template;
 
-        for (let bauble of this.baubles)
-            bauble.element.hidden = true;
+        for (let id in this.baubles)
+            this.baubles[id].element.hidden = true;
         current.element.hidden = false;
 
         for (let element of this.baubleTitles) {
@@ -298,6 +338,25 @@ class BaubleController {
                 element.replaceChildren('');
         }
 
+        for (let element of this.typeControls)
+            element.hidden = !current.type;
+
+        if (current.type) {
+            for (let element of this.colorTypeControls) {
+                if (current.type === 'color')
+                    element.classList.add('is-active');
+                else
+                    element.classList.remove('is-active');
+            }
+
+            for (let element of this.linesTypeControls) {
+                if (current.type === 'lines')
+                    element.classList.add('is-active');
+                else
+                    element.classList.remove('is-active');
+            }
+        }
+
         // Update navigation
         for (let element of this.context.querySelectorAll(`[href='#${previous.id}']`))
             element.classList.remove('is-active');
@@ -306,7 +365,7 @@ class BaubleController {
 
         // Update url
         if (updateLocation)
-            history.pushState(null, null, `#${current.id}`);
+            history.pushState(null, null, current.id);
     }
 
     handlePrint(event) {

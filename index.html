@@ -49,7 +49,14 @@ Author: Martijn Luinstra (mail@martijnluinstra.nl)
             <div class="instructions">No baubles loaded.</div>
         </noscript>
         <div class="instructions" data-loading>&nbsp; <!-- Minimise flashes --></div>
-        <article id="globe" class="bauble" data-texture="/img/textures/globe.jpg" data-template="/img/templates/globe.svg" hidden>
+        <article
+            id="globe"
+            class="bauble"
+            data-texture="/img/textures/globe.jpg"
+            data-template="/img/templates/globe.svg"
+            data-alt-lines="#globe-lines"
+            hidden
+        >
             <h2 data-title>
                 <span lang="en">Globe</span>
                 <span lang="nl">Wereldbol</span>
@@ -60,6 +67,21 @@ Author: Martijn Luinstra (mail@martijnluinstra.nl)
             <div lang="nl">
                 <p>Een klein wereldje voor in je kerstboom!</p>
             </div>
+        </article>
+        <article
+            id="globe-lines"
+            class="bauble"
+            data-texture="/img/textures/globe_lines.png"
+            data-template="/img/templates/globe_lines.svg"
+            data-alt-color="#globe"
+            hidden
+        >
+            <h2 data-title>
+                <span lang="en">Globe</span>
+                <span lang="nl">Wereldbol</span>
+            </h2>
+            <div lang="en">The world is a colouring picture!</div>
+            <div lang="nl">De hele wereld is een kleurplaat!</div>
         </article>
         <article id="waves" class="bauble" data-texture="/img/textures/waves.jpg" data-template="/img/templates/waves.svg" hidden>
             <h2 data-title>
@@ -96,14 +118,6 @@ Author: Martijn Luinstra (mail@martijnluinstra.nl)
             <div lang="nl">
                 <p>Fleur je kamer op met deze kleurrijke art-deco waaiers!</p>
             </div>
-        </article>
-        <article id="globe_simple" class="bauble" data-texture="/img/textures/globe_simple.png" data-template="/img/templates/globe_simple.svg" hidden>
-            <h2 data-title>
-                <span lang="en">Globe</span>
-                <span lang="nl">Wereldbol</span>
-            </h2>
-            <div lang="en">The world is a colouring picture!</div>
-            <div lang="nl">De hele wereld is een kleurplaat!</div>
         </article>
         <article id="jackie" class="bauble" data-texture="/img/textures/jackie.jpg" data-template="/img/templates/jackie.svg" data-model="/models/jackie.glb" hidden>
             <h2 data-title>
@@ -144,6 +158,16 @@ Author: Martijn Luinstra (mail@martijnluinstra.nl)
             </div>
         </article>
         <div class="controls">
+            <div class="toggle" data-type>
+                <button type="button" data-type-color>
+                    <span lang="en">Colour</span>
+                    <span lang="nl">Kleur</span>
+                </button>
+                <button type="button" data-type-lines>
+                    <span lang="en">Lines</span>
+                    <span lang="nl">Lijnen</span>
+                </button>
+            </div>
             <button type="button" data-print>
                 <span lang="en">Print</span>
                 <span lang="nl">Afdrukken</span>
