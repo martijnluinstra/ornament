@@ -7,6 +7,7 @@ window.AVAILABLE_LANGUAGES = ['en', 'nl'];
 
 
 class BaubleAnimation {
+    #model;
     #material;
     #fov = 35;
     #yOffset = 10;
@@ -15,7 +16,7 @@ class BaubleAnimation {
         this.element = context.querySelector('.animation');
         this.defaultModel = this.element.dataset.model;
         this.models = {};
-        this.textures = {};
+        this.materials = {};
 
         this.init();
         this.animate();
@@ -54,31 +55,53 @@ class BaubleAnimation {
         this.scene.add(directionalLight);
     }
 
-    loadModel(src) {
-        if (!(src in this.models)) {
-            const loader = new GLTFLoader();
-            loader.load(
-                src,
-                (gltf) => {
-                    const model = gltf.scene.children[0];
-                    model.name = src;
-                    model.material = this.material;
-                    this.models[src] = model;
-                    this.loadModel(src);
-                },
-            );
-        } else if (!this.currentModel) {
-            this.currentModel = this.models[src];
-            this.scene.add(this.currentModel);
-        } else if (this.currentModel.name !== src) {
-            let rotation = this.currentModel.rotation.y;
-            // Show hero face
-            rotation = (rotation + Math.PI / 2) % Math.PI - Math.PI / 2;
-            this.scene.remove(this.currentModel);
-            this.currentModel = this.models[src];
-            this.currentModel.rotation.y = rotation;
-            this.scene.add(this.currentModel);
+    createMaterial(options) {
+        return new THREE.MeshPhongMaterial({
+            color: 0xffffff,
+            fog: true,
+            shininess: 20,
+            ...options,
+        });
+    }
+
+    loadModel(src, updateCurrent=false) {
+        if (src in this.models)
+            return;
+
+        const loader = new GLTFLoader();
+        loader.load(
+            src,
+            (gltf) => {
+                const model = gltf.scene.children[0];
+                model.name = src;
+                model.material = this.#material;
+                this.models[src] = model;
+                if (updateCurrent)
+                    this.model = src;
+            },
+        );
+    }
+
+    loadMaterial(src) {
+        if (src in this.materials)
+            return;
+
+        if (src === 'empty') {
+            this.materials[src] = this.createMaterial();
+        } else {
+            const textureLoader = new THREE.TextureLoader();
+            let texture = textureLoader.load(src);
+            texture.flipY = false;
+            this.materials[src] = this.createMaterial({map: texture});
         }
+    }
+
+    preload(bauble) {
+        this.loadMaterial(bauble.texture);
+        if (bauble.model)
+            this.loadModel(bauble.model);
+        else
+            this.loadModel(this.defaultModel);
     }
 
     initControls() {
@@ -95,8 +118,8 @@ class BaubleAnimation {
 
         if (this.controls)
             this.controls.update();
-        else if (this.currentModel)
-            this.currentModel.rotation.y += 0.005;
+        else if (this.model)
+            this.model.rotation.y += 0.005;
 
         this.renderer.render(this.scene, this.camera);
     }
@@ -110,53 +133,62 @@ class BaubleAnimation {
         this.camera.updateProjectionMatrix();
     }
 
+    get model() {
+        return this.#model;
+    }
+
+    set model(src) {
+        if (!src)
+            src = this.defaultModel;
+
+        if (!(src in this.models)) {
+            this.loadModel(src, true);
+        }
+
+        const previous = this.#model;
+        const current = this.models[src];
+
+        if (previous)
+            this.scene.remove(previous);
+
+        if (current) {
+            this.scene.add(current);
+            this.#model = current;
+        }
+
+        if (current && previous) {
+            // Show hero face
+            let rotation = previous.rotation.y;
+            rotation = (rotation + Math.PI / 2) % Math.PI - Math.PI / 2;
+            current.rotation.y = rotation;
+        }
+    }
+
     set texture(src) {
-        // Init (or reset) material
-        if (this.material);
-            delete this.#material.map;
+        if (!src)
+            src = 'empty';
+        
+        if (!(src in this.materials))
+            this.loadMaterial(src);
 
-        if (src && !(src in this.textures)) {
-            const textureLoader = new THREE.TextureLoader();
-            let texture = textureLoader.load(src);
-            texture.flipY = false;
-            this.textures[src] = texture;
-        }
+        this.#material = this.materials[src];
 
-        if (src) {
-            this.#material.map = this.textures[src];
-            this.#material.version ++;
-            // this.#material.needsUpdate = true;
-        }
-
-        if (this.currentModel) {
-            this.currentModel.material = this.material;
+        if (this.model) {
+            this.model.material = this.#material;
 
             // Show hero face
-            let rotation = this.currentModel.rotation.y;
+            let rotation = this.model.rotation.y;
             rotation = (rotation + Math.PI / 2) % Math.PI - Math.PI / 2;
-            this.currentModel.rotation.y = rotation;
+            this.model.rotation.y = rotation;
         }
 
         for (const key in this.models)
-            this.models[key].material = this.material;
-    }
-
-    get material() {
-        if (!this.#material)
-            this.#material = {
-                color: 0xffffff,
-                fog: true,
-                shininess: 20,
-            };
-        return new THREE.MeshPhongMaterial(this.#material);
+            this.models[key].material = this.#material;
     }
 
     set bauble(bauble) {
         this.texture = bauble.texture;
-        if (bauble.model)
-            this.loadModel(bauble.model);
-        else
-            this.loadModel(this.defaultModel);
+        this.model = bauble.model;
         // Things might have changed
         this.handleResize();
     }
@@ -218,6 +250,8 @@ class BaubleController {
         for (let element of context.querySelectorAll('dialog'))
             this.dialogs[`#${element.id}`] = element;
         document.addEventListener('click', this.handleDocumentClick.bind(this));
+
+        setTimeout(this.preload.bind(this), 500);
     }
 
     loadBaubles(context) {
@@ -386,6 +420,11 @@ class BaubleController {
             if (!isInDialog)
                 event.target.close();
         }
+    }
+
+    preload() {
+        for (const key in this.baubles)
+            this.animation.preload(this.baubles[key]);
     }
 }
 
