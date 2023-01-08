@@ -180,20 +180,40 @@ class BaubleTemplate {
 
 
 class BaubleController {
+    #current = 0;
+
     constructor(context) {
         this.context = context;
         this.animation = new BaubleAnimation(context);
         this.template = new BaubleTemplate(context);
 
+        this.baubleTitles = context.querySelectorAll('.bauble-title');
+        this.baubleControls = context.querySelectorAll('.bauble-controls');
+
+        this.loadBaubles(context);
+
+        for (let element of context.querySelectorAll('[data-loading]'))
+            element.hidden = true;
+
+        for (let element of context.querySelectorAll('[data-next]'))
+            element.addEventListener('click', () => this.toggle(this.#current + 1));
+
+        for (let element of context.querySelectorAll('[data-previous]'))
+            element.addEventListener('click', () => this.toggle(this.#current - 1));
+
+        for (let element of context.querySelectorAll('[data-print]'))
+            element.addEventListener('click', this.handlePrint.bind(this));
+
+        // Dialogs
         this.dialogs = {};
         for (let element of context.querySelectorAll('dialog'))
             this.dialogs[`#${element.id}`] = element;
+        document.addEventListener('click', this.handleDocumentClick.bind(this));
+    }
 
-        this.navigationDialog = context.getElementById('navigation-dialog');
+    loadBaubles(context) {
+        let navigationDialogList = context.querySelector('#navigation-dialog nav ul');
 
-        let navigationDialogList = this.navigationDialog.querySelector('nav ul');
-
-        this.current = 0;
         this.baubles = [];
         for (const element of context.querySelectorAll('.bauble')) {
             let bauble = {
@@ -203,21 +223,12 @@ class BaubleController {
                 template: element.dataset.template,
                 model: element.dataset.model,
             }
+
             let title = element.querySelector('[data-title]');
             if (title) {
                 bauble.title = title.cloneNode(true);
                 title.hidden = true;
-
-                let aEl = document.createElement('a');
-                aEl.append(...title.cloneNode(true).children);
-                aEl.classList.add('button', 'is-stealth');
-                aEl.href = `#${bauble.id}`;
-                aEl.addEventListener(
-                    'click', () => this.toggle(bauble.id),
-                )
-                let liEl = document.createElement('li');
-                liEl.append(aEl);
-                navigationDialogList.append(liEl);
+                navigationDialogList.append(this.createNavigationElement(bauble));
             }
 
             let controls = element.querySelector('[data-controls]');
@@ -229,67 +240,76 @@ class BaubleController {
             this.baubles.push(bauble);
         }
 
-        this.titleContainers = context.querySelectorAll('.title-button');
-        this.controlsContainers = context.querySelectorAll('.bauble-controls');
-        this.toggle(this.baubles.findIndex(o => !o.element.hidden));
-
-        for (let element of context.querySelectorAll('[data-next]'))
-            element.addEventListener(
-                'click', () => this.toggle((this.current + 1) % this.baubles.length )
-            );
-
-        for (let element of context.querySelectorAll('[data-previous]'))
-            element.addEventListener(
-                'click', () => this.toggle((this.baubles.length + this.current - 1) % this.baubles.length )
-            );
-
-        for (let element of context.querySelectorAll('[data-print]'))
-            element.addEventListener('click', this.print.bind(this));
-
-        document.addEventListener('click', this.handleDocumentClick.bind(this));
-
+        if (this.baubles.findIndex(b => b.id === window.location.hash) > 0)
+            this.toggle(window.location.hash);
+        else
+            this.toggle(this.#current, false);
     }
 
-    toggle(bauble_id) {
-        this.navigationDialog.close();
+    createNavigationElement(bauble) {
+        let anchorElement = document.createElement('a');
+        anchorElement.append(...bauble.title.cloneNode(true).children);
+        anchorElement.classList.add('button', 'is-stealth');
+        anchorElement.href = `#${bauble.id}`;
+        anchorElement.addEventListener(
+            'click', () => this.toggle(bauble.id),
+        )
+        let itemElement = document.createElement('li');
+        itemElement.append(anchorElement);
+        return itemElement;
+    }
+
+    toggle(bauble_id, updateLocation=true) {
+        // Close dialog (if needed)
+        this.context.getElementById('navigation-dialog').close();
+
         if (typeof bauble_id === 'string')
             bauble_id = this.baubles.findIndex(b => b.id === bauble_id);
+        else
+            bauble_id = (this.baubles.length + bauble_id) % this.baubles.length;
 
         if (bauble_id < 0)
             return;
 
-        let previous = this.baubles[this.current];
+        // Switch
+        let previous = this.baubles[this.#current];
         let current = this.baubles[bauble_id];
-        this.current = bauble_id;
+        this.#current = bauble_id;
 
-        for (let element of this.context.querySelectorAll(`[href='#${previous.id}']`))
-            element.classList.remove('is-active');
+        // Update content
+        this.animation.bauble = current;
+        this.template.template = current.template;
 
         for (let bauble of this.baubles)
             bauble.element.hidden = true;
-
         current.element.hidden = false;
 
-        this.animation.bauble = current;
-        this.template.template = current.template;
-        for (let element of this.titleContainers) {
+        for (let element of this.baubleTitles) {
             if (current.title)
                 element.replaceChildren(current.title);
             else
                 element.replaceChildren('');
         }
-        for (let element of this.controlsContainers) {
+
+        for (let element of this.baubleControls) {
             if (current.controls)
                 element.replaceChildren(...current.controls.cloneNode(true).children);
             else
                 element.replaceChildren('');
         }
 
+        // Update navigation
+        for (let element of this.context.querySelectorAll(`[href='#${previous.id}']`))
+            element.classList.remove('is-active');
         for (let element of this.context.querySelectorAll(`[href='#${current.id}']`))
             element.classList.add('is-active');
+
+        // Update url
+        if (updateLocation)
+            history.pushState(null, null, `#${current.id}`);
     }
 
-    print(event) {
+    handlePrint(event) {
         window.print();
         event.target.blur();
     }

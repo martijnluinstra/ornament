@@ -27,7 +27,7 @@
     --header-width: 40ch;
     --navigation-height: 3rem;
     --text-width: 58ch;
-    --title-button-width: 30ch;
+    --bauble-title-width: 30ch;
 
     /* Encode SVG to prevent flashes on interaction */
     --border-endcap-offset: 7.46px;
@@ -137,16 +137,6 @@ svg {
     text-rendering:  optimizeLegibility;
 }
 
-noscript {
-    display: block;
-    background: var(--background);
-    margin: var(--gap);
-    padding: var(--gap);
-    max-width: var(--text-width);
-    text-align: center;
-    border: var(--border-width) solid var(--border-color);
-}
-
 @media (max-width: 900px) {
     body {
         font-size: 16px;
@@ -168,6 +158,16 @@ html[lang^=nl] [lang=en] {
 /*******************************************************************************
  * Generic elements
  ******************************************************************************/
+
+.block {
+    display: block;
+    background: var(--background);
+    margin: var(--gap);
+    padding: var(--gap);
+    max-width: var(--text-width);
+    text-align: center;
+    border: var(--border-width) solid var(--border-color);
+}
 
 .icon {
     fill: currentColor;
@@ -582,14 +582,14 @@ header p {
     padding: 0;
 }
 
-.bauble-switcher .title-button {
-    width: var(--title-button-width);
+.bauble-switcher .bauble-title {
+    width: var(--bauble-title-width);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.bauble-switcher .title-button h2 {
+.bauble-switcher .bauble-title h2 {
     width: 100%;
     overflow: hidden;
     white-space: nowrap;
@@ -597,7 +597,7 @@ header p {
     text-align: center;
 }
 
-.bauble-switcher .title-button h2 * {
+.bauble-switcher .bauble-title h2 * {
     /* Make sure everything overflows correctly */
     display: inline;
 }
@@ -635,7 +635,7 @@ header p {
         transform: translateZ(-1px) scaleX(-1); /* Fix weird behaviour in Firefox */
     }
 
-    .bauble-switcher .title-button {
+    .bauble-switcher .bauble-title {
         max-width: calc(100vw - var(--gap) * 12); /* ✨ Magic ✨ */
     }
 }
@@ -678,7 +678,7 @@ header p {
     z-index: 10;
 }
 
-/* Bauble + instructions*/
+/* Bauble + instructions */
 .bauble,
 .instructions {
     max-width: var(--text-width);

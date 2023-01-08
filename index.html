@@ -25,7 +25,9 @@ Author: Martijn Luinstra (mail@martijnluinstra.nl)
     </header>
     <section class="animation-container">
         <noscript>
-            <p>It looks like your browser has disabled JavaScript. This page relies on JavaScript for switching templates and animations. It doesn't use any cookies or externally hosted content. Please turn on JavaScript for the best experience.</p>
+            <div class="block">
+                <p>It looks like your browser has disabled JavaScript. This page relies on JavaScript for loading bauble templates and animations. It doesn't use any cookies or externally hosted content. Please turn on JavaScript for the best experience.</p>
+            </div>
         </noscript>
         <div class="animation" data-model="/models/bauble.glb"></div>
     </section>
@@ -35,7 +37,7 @@ Author: Martijn Luinstra (mail@martijnluinstra.nl)
                 <polygon points="7.5,22.5 45.9,22.5 45.9,26.4 7.5,26.4 21.2,40.1 18.5,42.9 0,24.4 18.5,5.9 21.2,8.7"/>
             </svg>
         </button>
-        <a href="#navigation-dialog" class="button title-button"></a>
+        <a href="#navigation-dialog" class="button bauble-title"></a>
         <button type="button" data-next aria-label="Next">
             <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48.8 48.8">
                 <polygon points="41.4,22.5 2.9,22.5 2.9,26.4 41.4,26.4 27.6,40.1 30.4,42.9 48.8,24.4 30.4,5.9 27.6,8.7"/>
@@ -43,7 +45,11 @@ Author: Martijn Luinstra (mail@martijnluinstra.nl)
         </button>
     </nav>
     <section class="content">
-        <article id="globe" class="bauble" data-texture="/img/textures/globe.jpg" data-template="/img/templates/globe.svg">
+        <noscript>
+            <div class="instructions">No baubles loaded.</div>
+        </noscript>
+        <div class="instructions" data-loading>&nbsp; <!-- Minimise flashes --></div>
+        <article id="globe" class="bauble" data-texture="/img/textures/globe.jpg" data-template="/img/templates/globe.svg" hidden>
             <h2 data-title>
                 <span lang="en">Globe</span>
                 <span lang="nl">Wereldbol</span>
