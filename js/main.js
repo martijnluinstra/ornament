@@ -248,7 +248,8 @@ class BaubleController {
             if (title) {
                 bauble.title = title.cloneNode(true);
                 title.hidden = true;
-                navigationDialogList.append(this.createNavigationElement(bauble));
+                if (!bauble.type || bauble.type !== 'lines')
+                    navigationDialogList.append(this.createNavigationElement(bauble));
             }
 
             let controls = element.querySelector('[data-controls]');
@@ -294,7 +295,6 @@ class BaubleController {
         if (current < 0) 
             current = this.navigation.indexOf(this.#current.alt) || 0;
         const idx = (this.navigation.length + current + direction) % this.navigation.length;
-        console.log(this.#current, current, idx, this.navigation);
         return this.toggle(this.navigation[idx]);
     }
 

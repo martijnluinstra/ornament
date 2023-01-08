@@ -22,12 +22,13 @@
     --gap: var(--fancy-border-width);
 
     --icon-size: calc(2 * var(--fancy-border-width));
+    --bauble-title-width: 30ch;
     --button-height: 2em;
     --header-height: 5rem;
     --header-width: 40ch;
+    --main-max-width: 70rem; /* In rem to prevent jumping after loading fonts */
     --navigation-height: 3rem;
     --text-width: 58ch;
-    --bauble-title-width: 30ch;
 
     /* Encode SVG to prevent flashes on interaction */
     --border-endcap-offset: 7.46px;
@@ -449,7 +450,7 @@ dialog::backdrop {
  ******************************************************************************/
 main {
     width: 100%;
-    max-width: 100ch;
+    max-width: var(--main-max-width);
     margin: 0 auto;
     padding: var(--gap);
     min-height: 100%;
