@@ -25,7 +25,7 @@ Author: Martijn Luinstra (mail@martijnluinstra.nl)
     </header>
     <section class="animation-container">
         <noscript>
-            <p>It looks like your browser has disabled JavaScript. This page heavily relies on JavaScript for it's operation. Please turn on JavaScript for the best experience.</p>
+            <p>It looks like your browser has disabled JavaScript. This page relies on JavaScript for switching templates and animations. It doesn't use any cookies or externally hosted content. Please turn on JavaScript for the best experience.</p>
         </noscript>
         <div class="animation" data-model="/models/bauble.glb"></div>
     </section>
@@ -49,14 +49,11 @@ Author: Martijn Luinstra (mail@martijnluinstra.nl)
                 <span lang="nl">Wereldbol</span>
             </h2>
             <div lang="en">
-                <p>
-                    You’re out of this world!
-                </p>
-                <p>
-                    Made with <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener noreferrer nofollow">Natural Earth</a>.
-                </p>
+                <p>You’re out of this world!</p>
             </div>
-            <div lang="nl">Bladibla</div>
+            <div lang="nl">
+                <p>Een klein wereldje voor in je kerstboom!</p>
+            </div>
         </article>
         <article id="waves" class="bauble" data-texture="/img/textures/waves.jpg" data-template="/img/templates/waves.svg" hidden>
             <h2 data-title>
@@ -64,11 +61,11 @@ Author: Martijn Luinstra (mail@martijnluinstra.nl)
                 <span lang="nl">Golven</span>
             </h2>
             <div lang="en">
-                <p>
-                    Can’t get enough of the ocean? Turn it into a bauble!
-                </p>
+                <p>Can’t get enough of the ocean? Turn it into a bauble!</p>
             </div>
-            <div lang="nl">Bladibla</div>
+            <div lang="nl">
+                <p>Kan je niet genoeg krijgen van de zee? Maak er een kerstbal van!</p>
+            </div>
         </article>
         <article id="diamonds" class="bauble" data-texture="/img/textures/diamonds.jpg" data-template="/img/templates/diamonds.svg" hidden>
             <h2 data-title>
@@ -76,11 +73,11 @@ Author: Martijn Luinstra (mail@martijnluinstra.nl)
                 <span lang="nl">Ruiten</span>
             </h2>
             <div lang="en">
-                <p>
-                    A tasteful Art Deco inspired diamond pattern
-                </p>
+                <p>This tasteful Art Deco diamond pattern looks great in any home!</p>
             </div>
-            <div lang="nl">Bladibla</div>
+            <div lang="nl">
+                <p>Dit smaakvolle art-deco ruitpatroon staat goed in ieder huis!</p>
+            </div>
         </article>
         <article id="fans" class="bauble" data-texture="/img/textures/fans.jpg" data-template="/img/templates/fans.svg" hidden>
             <h2 data-title>
@@ -88,19 +85,19 @@ Author: Martijn Luinstra (mail@martijnluinstra.nl)
                 <span lang="nl">Waaiers</span>
             </h2>
             <div lang="en">
-                <p>
-                    A colourful Art Deco inspired fan pattern
-                </p>
+                <p>Brighten up your space with these colourful Art Deco fans!</p>
             </div>
-            <div lang="nl">Bladibla</div>
+            <div lang="nl">
+                <p>Fleur je kamer op met deze kleurrijke art-deco waaiers!</p>
+            </div>
         </article>
         <article id="globe_simple" class="bauble" data-texture="/img/textures/globe_simple.png" data-template="/img/templates/globe_simple.svg" hidden>
             <h2 data-title>
-                <span lang="en">Globe outlines</span>
-                <span lang="nl">Wereldbol lijnen</span>
+                <span lang="en">Globe</span>
+                <span lang="nl">Wereldbol</span>
             </h2>
-            <div lang="en">Bladibla</div>
-            <div lang="nl">Bladibla</div>
+            <div lang="en">The world is a colouring picture!</div>
+            <div lang="nl">De hele wereld is een kleurplaat!</div>
         </article>
         <article id="jackie" class="bauble" data-texture="/img/textures/jackie.jpg" data-template="/img/templates/jackie.svg" data-model="/models/jackie.glb" hidden>
             <h2 data-title>
@@ -109,12 +106,12 @@ Author: Martijn Luinstra (mail@martijnluinstra.nl)
             </h2>
             <div lang="en">
                 <p>
-                    Jackie the vegan reindeer! A vegan interpretation of a Greenlandic reindeer stew.
+                    Jackie the vegan reindeer! A vegan interpretation of a Greenlandic reindeer stew. Trust me, it’s delicious.
                 </p>
             </div>
             <div lang="nl">
                 <p>
-                    Jackie the vegan reindeer! Een veganistische interpretatie van een Groenlandse rendierstoof.
+                    Jackie the vegan reindeer! Een veganistische interpretatie van een Groenlandse rendierstoof. Het is erg lekker.
                 </p>
             </div>
             <div data-controls>
@@ -132,11 +129,13 @@ Author: Martijn Luinstra (mail@martijnluinstra.nl)
                 <span lang="nl">Jouw ontwerp</span>
             </h2>
             <div lang="en">
-                <p>
-                    Time to get creative!
-                </p>
+                <p>Time to get creative! This one's on you.</p>
+                <p>I'm considering to feature that allows you to create a template with your own pictures. Let me know if you’re interested!</p>
             </div>
-            <div lang="nl">Bladibla</div>
+            <div lang="nl">
+                <p>Tijd om creatief te zijn! Deze mag je zelf ontwerpen.</p>
+                <p>Ik overweeg om het mogelijk te maken dat je een kerstbal met je eigen foto kunt maken. Laat het weten als je daarin geïnteresseerd bent!</p>
+            </div>
         </article>
         <div class="controls">
             <button type="button" data-print>
@@ -145,6 +144,12 @@ Author: Martijn Luinstra (mail@martijnluinstra.nl)
             </button>
             <div class="bauble-controls"></div>
         </div>
+        <article lang="en" class="instructions">
+            <p>Print the template and make this bauble yourself! All you need is a pair of scissors and some glue. And, of course, time. </p>
+        </article>
+        <article lang="nl" class="instructions">
+            <p>Druk het sjabloon af en maak deze kerstbal zelf! Je hebt niet meer dan een schaar en lijm nodig. En tijd, natuurlijk.</p>
+        </article>
     </section>
     <dialog id="navigation-dialog" aria-labelledby="navigation-dialog-title">
         <h2 id="navigation-dialog-title">
@@ -155,25 +160,19 @@ Author: Martijn Luinstra (mail@martijnluinstra.nl)
     </dialog>
     <footer lang="en">
         <ul>
+            <li><a href="#about-dialog">About this page</a></li>
             <li>
-                Made in 2023 by <a href="https://martijnluinstra.nl">Martijn Luinstra</a>
-            </li>
-            <li>
-                Taal aanpassen: 
+                Taal aanpassen:
                 <a href="?lang=nl">NL</a>
-                (<a href="/">reset</a>)
             </li>
         </ul>
     </footer>
     <footer lang="nl">
         <ul>
-            <li>
-                Gemaakt in 2023 door <a href="https://martijnluinstra.nl">Martijn Luinstra</a>
-            </li>
+            <li><a href="#about-dialog">Over deze pagina</a></li>
             <li>
                 Change language:
                 <a href="?lang=en">EN</a>
-                (<a href="/">reset</a>)
             </li>
         </ul>
     </footer>
@@ -297,6 +296,60 @@ Author: Martijn Luinstra (mail@martijnluinstra.nl)
         </g>
     </svg>
 </article>
+<dialog id="about-dialog" aria-label="About this page">
+    <form method="dialog">
+        <button>
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48.8 48.8">
+                <polygon points="8.7,6 24.4,21.7 40.1,6 42.9,8.7 27.2,24.4 42.9,40.1 40.1,42.9 24.4,27.2 8.7,42.9 6,40.1 21.7,24.4 6,8.7"/>
+            </svg>
+        </button>
+    </form>
+    <article lang="en">
+        <h2>About</h2>
+        <p>
+            A <a href="https://midwinter.mrty.nl" target="_blank">midwinter project</a> by <a href="https://martijnluinstra.nl" target="_blank">Martijn Luinstra</a>. Made during the 2022-2023 holiday season. Source code is available on <a href="https://github.com/martijnluinstra/ornament" target="_blank" rel="noopener noreferrer nofollow">GitHub</a>.
+        </p>
+        <p>
+            If you find any mistakes, typos, or bugs, please don't hesitate to <a href="mailto:mail@martijnluinstra.nl">contact me</a> or <a href="https://github.com/martijnluinstra/ornament/issues" target="_blank" rel="noopener noreferrer nofollow">submit an issue</a>.
+        </p>
+        <h3>Sources</h3>
+        <ul>
+            <li>Maps made with data from <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener noreferrer nofollow">Natural Earth</a>.</li>
+            <li>Typefaces: <a href="https://fonts.google.com/specimen/Josefin+Sans" target="_blank" rel="noopener noreferrer nofollow">Josefin Sans</a> and <a href="https://fonts.google.com/specimen/Limelight" target="_blank" rel="noopener noreferrer nofollow">LimeLight</a>.</li>
+            <li>Design, art, icons and text: own work.</li>
+        </ul>
+        <h3>Data</h3>
+        <p>This page does not use any cookies or externally hosted content. I'm not interested in your data.</p>
+        <p>
+            Taal aanpassen: 
+            <a href="?lang=nl">NL</a>
+            (<a href="/">reset</a>)
+        </p>
+    </article>
+    <article lang="nl">
+        <h2>Over</h2>
+
+        <p>
+            Een <a href="https://midwinter.mrty.nl" target="_blank">midwinterproject</a> van <a href="https://martijnluinstra.nl" target="_blank">Martijn Luinstra</a>. Gemaakt tijdens de kerstvakantie in 2022-2023. Broncode is beschikbaar op <a href="https://github.com/martijnluinstra/ornament" target="_blank" rel="noopener noreferrer nofollow">GitHub</a>.
+        </p>
+        <p>
+            Mocht je vergissingen, typefouten of bugs tegenkomen, laat het me alsjeblieft even weten (<a href="mailto:mail@martijnluinstra.nl">e-mail</a> of <a href="https://github.com/martijnluinstra/ornament/issues" target="_blank" rel="noopener noreferrer nofollow">maak een issue</a>).
+        </p>
+        <h3>Bronnen</h3>
+        <ul>
+            <li>Kaarten gemaakt met data van <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener noreferrer nofollow">Natural Earth</a>.</li>
+            <li>Lettertypen: <a href="https://fonts.google.com/specimen/Josefin+Sans" target="_blank" rel="noopener noreferrer nofollow">Josefin Sans</a> en <a href="https://fonts.google.com/specimen/Limelight" target="_blank" rel="noopener noreferrer nofollow">LimeLight</a>.</li>
+            <li>Ontwerp, tekeningen, iconen en tekst: own work.</li>
+        </ul>
+        <h3>Data</h3>
+        <p>Deze pagina gebruikt geen cookies of externe bestanden. Ik ben niet geïnteresseerd in je data.</p>
+        <p>
+            Change language:
+            <a href="?lang=en">EN</a>
+            (<a href="/">reset</a>)
+        </p>
+    </article>
+</dialog>
 <dialog id="jackie-dialog" aria-label="Jackie">
     <form method="dialog">
         <button>
