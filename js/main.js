@@ -8,6 +8,8 @@ window.AVAILABLE_LANGUAGES = ['en', 'nl'];
 
 class BaubleAnimation {
     #material;
+    #fov = 35;
+    #yOffset = 10;
 
     constructor(context) {
         this.element = context.querySelector('.animation');
@@ -23,9 +25,13 @@ class BaubleAnimation {
 
     init() {
         this.scene = new THREE.Scene();
-        this.camera = new THREE.PerspectiveCamera(36, this.element.clientWidth / this.element.clientHeight, 0.1, 1000);
-        this.camera.position.set(0, 75, 200);
-        this.camera.lookAt(0, 0, 0);
+        const aspect = this.element.clientWidth / this.element.clientHeight;
+        let fov = this.#fov;
+        if (aspect < 1)
+            fov /= Math.sqrt(aspect);
+        this.camera = new THREE.PerspectiveCamera(fov, aspect, 0.1, 1000);
+        this.camera.position.set(0, 75 + this.#yOffset, 200);
+        this.camera.lookAt(0, this.#yOffset, 0);
 
         this.renderer = new THREE.WebGLRenderer({
             antialias: true,
@@ -65,7 +71,9 @@ class BaubleAnimation {
             this.currentModel = this.models[src];
             this.scene.add(this.currentModel);
         } else if (this.currentModel.name !== src) {
-            const rotation = this.currentModel.rotation.y;
+            let rotation = this.currentModel.rotation.y;
+            // Show hero face
+            rotation = (rotation + Math.PI / 2) % Math.PI - Math.PI / 2;
             this.scene.remove(this.currentModel);
             this.currentModel = this.models[src];
             this.currentModel.rotation.y = rotation;
@@ -94,8 +102,11 @@ class BaubleAnimation {
     }
 
     handleResize() {
+        const aspect = this.element.clientWidth / this.element.clientHeight;
         this.renderer.setSize(this.element.clientWidth, this.element.clientHeight);
-        this.camera.aspect = this.element.clientWidth / this.element.clientHeight;
+        this.camera.aspect = aspect;
+        if (aspect < 1)
+            this.camera.fov = this.#fov / Math.sqrt(aspect);
         this.camera.updateProjectionMatrix();
     }
 
@@ -117,8 +128,15 @@ class BaubleAnimation {
             // this.#material.needsUpdate = true;
         }
 
-        if (this.currentModel)
+        if (this.currentModel) {
             this.currentModel.material = this.material;
+
+            // Show hero face
+            let rotation = this.currentModel.rotation.y;
+            rotation = (rotation + Math.PI / 2) % Math.PI - Math.PI / 2;
+            this.currentModel.rotation.y = rotation;
+        }
+
         for (const key in this.models)
             this.models[key].material = this.material;
     }
@@ -139,6 +157,8 @@ class BaubleAnimation {
             this.loadModel(bauble.model);
         else
             this.loadModel(this.defaultModel);
+        // Things might have changed
+        this.handleResize();
     }
 }
 
