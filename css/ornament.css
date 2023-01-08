@@ -8,8 +8,6 @@
     --paper: #f1eae0;
     --duration: 75ms;
 
-    --gap: 14px;
-
     --border-color: var(--gold);
     --border-width: 2px;
     --border: var(--border-width) solid var(--gold);
@@ -21,12 +19,13 @@
 
     --hexagon-scale: 0.287;
 
-    --icon-size: 28px;
+    --gap: var(--fancy-border-width);
 
+    --icon-size: calc(2 * var(--fancy-border-width));
     --button-height: 2em;
     --header-height: 5rem;
+    --header-width: 40ch;
     --navigation-height: 3rem;
-
     --text-width: 58ch;
     --title-button-width: 30ch;
 
@@ -92,8 +91,8 @@ h1, h2, h3, h4, h5, h6 {
     hyphens: auto;
 }
 
-h1 { font-size: 2em; }
-h2 { font-size: 2em; }
+h1 { font-size: 1.75em; }
+h2 { font-size: 1.75em; }
 h3 { font-size: 1.5em; }
 h4 { font-size: 1.17em; }
 h5 { font-size: 1em; }
@@ -141,20 +140,11 @@ svg {
 noscript {
     display: block;
     background: var(--background);
-    margin: calc(var(--gap) * 2) auto;
+    margin: var(--gap);
     padding: var(--gap);
     max-width: var(--text-width);
     text-align: center;
     border: var(--border-width) solid var(--border-color);
-}
-
-/* Language switch */
-html:not([lang^=nl]) [lang=nl] {
-    display: none !important;
-}
-
-html[lang^=nl] [lang=en] {
-    display: none !important;
 }
 
 @media (max-width: 900px) {
@@ -164,6 +154,15 @@ html[lang^=nl] [lang=en] {
 
     h1 { font-size: 1.5em; }
     h2 { font-size: 1.5em; }
+}
+
+/* Language switch */
+html:not([lang^=nl]) [lang=nl] {
+    display: none !important;
+}
+
+html[lang^=nl] [lang=en] {
+    display: none !important;
 }
 
 /*******************************************************************************
@@ -177,7 +176,6 @@ html[lang^=nl] [lang=en] {
     display: inline-block;
     vertical-align: middle;
     position: relative;
-    /*top: -0.05em;*/
 }
 
 /* Button */
@@ -476,7 +474,7 @@ main {
 /* Header */
 header {
     --height: var(--header-height);
-    max-width: var(--text-width);
+    width: var(--header-width);
 
     margin-right: auto;
     margin-bottom: calc(-0.5 * var(--height) - 0.5 * var(--fancy-border-width));
@@ -489,20 +487,16 @@ header {
 }
 
 header h1 {
-    margin-bottom: -0.5rem !important;
+    line-height: 1em;
+    margin-bottom: 0.2em !important;
+}
+header p {
+    line-height: 1em;
 }
 
 @media (max-width: 900px) {
     header {
         max-width: calc(100vw - 2 * var(--cap-width) - 2 * var(--fancy-border-texture-width) - 3 * var(--gap));
-    }
-
-    header h1 {
-        line-height: 1em;
-        margin-bottom: 0 !important;
-    }
-    header p {
-        line-height: 1.2em;
     }
 }
 
@@ -514,12 +508,18 @@ header h1 {
 
 /* Animation */
 .animation-container {
-    flex: 1 0 50vh;
+    --overhead-estimate: 19rem;
+    min-height: 25rem;
+    flex: 0 0 calc(100vh - var(--overhead-estimate));
     position: relative;
 
     background-image: url('/img/pattern.svg');
     background-size: 3rem;
     background-position: center top;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 
     border: var(--fancy-border);
@@ -642,10 +642,19 @@ header h1 {
 
 /* Content */
 .content {
+    flex: 1 0;
     position: relative;
+
     margin-top: calc(-0.5 * var(--fancy-border-width));
     padding-top: calc(0.5 * var(--navigation-height) - 0.5 * var(--fancy-border-width));
+    padding-right: var(--gap);
     padding-bottom: calc(var(--fancy-border-width)); /* Compensate for border detail */
+    padding-left: var(--gap);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
     background: var(--background);
     border: var(--fancy-border);
     border-image: var(--fancy-border-image);
@@ -669,16 +678,17 @@ header h1 {
     z-index: 10;
 }
 
-/* Bauble */
-.bauble {
+/* Bauble + instructions*/
+.bauble,
+.instructions {
     max-width: var(--text-width);
     margin: var(--gap) auto;
     text-align: center;
 }
 
+
 /* Controls */
 .controls {
-    margin: var(--gap) 0;
     display: flex;
     justify-content: center;
     gap: calc(var(--gap) * 2);
