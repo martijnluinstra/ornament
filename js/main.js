@@ -392,10 +392,16 @@ class BaubleController {
         }
 
         // Update navigation
-        for (let element of this.context.querySelectorAll(`[href='#${previous.id}']`))
+        for (let element of this.context.querySelectorAll(`[href='${previous.id}']`))
             element.classList.remove('is-active');
-        for (let element of this.context.querySelectorAll(`[href='#${current.id}']`))
+        if (previous.alt)
+            for (let element of this.context.querySelectorAll(`[href='${previous.alt}']`))
+                element.classList.remove('is-active');
+        for (let element of this.context.querySelectorAll(`[href='${current.id}']`))
             element.classList.add('is-active');
+        if (current.alt)
+            for (let element of this.context.querySelectorAll(`[href='${current.alt}']`))
+                element.classList.add('is-active');
 
         // Update url
         if (updateLocation)
