@@ -439,8 +439,10 @@ function initLanguage() {
     const url = new URL(window.location.href);
     let searchParams = url.searchParams;
 
-    if (searchParams.has('lang') && window.AVAILABLE_LANGUAGES.includes(searchParams.get('lang').toLowerCase()))
+    if (searchParams.has('lang') && window.AVAILABLE_LANGUAGES.includes(searchParams.get('lang').toLowerCase())) {
         document.documentElement.lang = searchParams.get('lang').toLowerCase();
+        return;
+    }
 
     // Make language the first user-preferred language that's also available
     for (const preferred of navigator.languages) {
